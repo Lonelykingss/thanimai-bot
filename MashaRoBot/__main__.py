@@ -430,8 +430,8 @@ elif query.data == "simplecmd":
             reply_markup=InlineKeyboardMarkup(
                [[InlineKeyboardButton(text="Basic Commands", callback_data="simplea"),
                  InlineKeyboardButton(text="Advanced Commands", callback_data="simpleb")],
-                [InlineKeyboardButton(text="Expert commands", callback_data="simpleb"),
-                 InlineKeyboardButton(text="Eᴀᴛʀᴀ Cᴏᴍᴍᴀɴᴅs", callback_data="simpled")],
+                [InlineKeyboardButton(text="Expert commands", callback_data="simplec"),
+                 InlineKeyboardButton(text="Notes", callback_data="simpled")],
                 [InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_")]
                ]
             ),
@@ -524,24 +524,42 @@ Pinned Messages
         )
     elif query.data == "simpled":
         query.message.edit_caption(
-            caption=""" *Here is the help for Extra Commands*:
+            caption=""" ✗ /get - <notename> get the note with this notename
 
+✗ <notename> same as /get
 
+✗ /notes - or /saved list all saved notes in this chat
 
-/lyrics [Music Name]
-- Searches Lyrics for the particular Music on web.
+✗ /number - Will pull the note of that number in the list
 
-/sudolist 
-- Check Sudo Users of wolf Music Bot
+If you would like to retrieve the contents of a note without any formatting, use /get <notename> noformat. This can
+be useful when updating a current note
 
-/song [Track Name] or [YT Link]
-- Download any track from youtube in mp3 or mp4 formats via wolf.
+Admins only:
 
-/queue
-- Check Queue List of Music.
+✗ /save -  <notename> <notedata> saves notedata as a note with name notename
 
-/cleanmode [Enable|Disable]
-- When enabled, wolf will be deleting her 3rd last message to keep your chat clean.""",
+A button can be added to a note by using standard markdown link syntax - the link should just be prepended with a
+buttonurl:  section, as such: [somelink](buttonurl:example.com). Check /markdownhelp for more info
+
+✗ /save - <notename> save the replied message as a note with name notename
+
+ Separate diff replies by %%% to get random notes
+
+ Example:
+ /save notename
+ Reply 1
+ %%%
+ Reply 2
+ %%%
+ Reply 3
+✗ /clear - <notename> clear note with this name
+
+✗ /removeallnotes - removes all notes from the group
+
+ Note: Note names are case-insensitive, and they are automatically converted to lowercase before getting saved.
+
+✗ Pᴏᴡᴇʀᴇᴅ 🔥 Bʏ: Thanamai .""",
             parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="simplecmd")]]
