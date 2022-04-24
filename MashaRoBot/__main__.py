@@ -76,7 +76,7 @@ buttons = [
             text="Aᴅᴅ Mᴇ 🥰", url="t.me/FINAL_STRIKER_BOT?startgroup=true"),
     ],
     [
-        InlineKeyboardButton(text="Cᴏᴍᴍᴀɴᴅs ❔", callback_data="help_back"),
+        InlineKeyboardButton(text="Cᴏᴍᴍᴀɴᴅs ❔", callback_data="wolf_"),
     ],
     [
         InlineKeyboardButton(text="Dᴇᴠʟᴏᴘᴇʀ🤓", url="https://t.me/TheTelegrampro"),
@@ -360,65 +360,525 @@ def help_button(update, context):
         pass
 
 
+
 @run_async
-def Masha_about_callback(update, context):
+def wolf_callback_handler(update, context):
     query = update.callback_query
-    if query.data == "masha_":
-        query.message.edit_text(
-            text=""" ℹ️ I'm *MASHA*, a powerful group management bot built to help you manage your group easily.
-                 \n❍ I can restrict users.
-                 \n❍ I can greet users with customizable welcome messages and even set a group's rules.
-                 \n❍ I have an advanced anti-flood system.
-                 \n❍ I can warn users until they reach max warns, with each predefined actions such as ban, mute, kick, etc.
-                 \n❍ I have a note keeping system, blacklists, and even predetermined replies on certain keywords.
-                 \n❍ I check for admins' permissions before executing any command and more stuffs
-                 \n\n_Masha's licensed under the GNU General Public License v3.0_
-                 \nHere is the [💾Repository](https://github.com/Mr-Dark-Prince/MashaRoBot).
-                 \n\nIf you have any question about Masha, let us know at @WasteBots.""",
+    if query.data == "wolf_":
+        query.message.edit_caption(
+            caption="""𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙃𝙚𝙡𝙥 𝙈𝙚𝙣𝙪. 
+────────────────────────
+*Sᴇʟᴇᴄᴛ  Aʟʟ  Cᴏᴍᴍᴀɴᴅs  Fᴏʀ  Fᴜʟʟ  Hᴇʟᴘ  Oʀ  Sᴇʟᴇᴄᴛ  Cᴀᴛᴀɢᴏʀʏ  Fᴏʀ  Mᴏʀᴇ  Hᴇʟᴘ  Dᴏᴄᴜᴍᴇɴᴛᴀᴛɪᴏɴ  Oɴ  Sᴇʟᴇᴄᴛᴇᴅ  Fɪᴇʟᴅs*""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
-                 [
-                    InlineKeyboardButton(text="Back", callback_data="masha_back")
-                 ]
+                    [
+                     InlineKeyboardButton(text="➕ Aʟʟ Cᴏᴍᴍᴀɴᴅs ➕", callback_data="help_back"),
+                    ],
+                    [InlineKeyboardButton(text="Hᴏᴡ Tᴏ Usᴇ Mᴇ ❓", callback_data="wolf_help"),                           
+                     InlineKeyboardButton(text="Mᴜsɪᴄ Hᴇʟᴘ 🎧", callback_data="wolf_music")],
+                    [InlineKeyboardButton(text="Fᴜɴ Tᴏᴏʟs ⚙", callback_data="wolf_tools"),
+                     InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_back")],
                 ]
             ),
         )
-    elif query.data == "masha_back":
-        query.message.edit_text(
-                PM_START_TEXT,
+    elif query.data == "wolf_back":
+        first_name = update.effective_user.first_name
+        uptime = get_readable_time((time.time() - StartTime))
+        query.message.edit_caption(
+                photo=random.choice(AASF),
+                caption=PM_START_TEXT.format(
+                    escape_markdown(first_name),
+                    sql.num_users(),
+                    sql.num_chats()),
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
-                disable_web_page_preview=True,
+                disable_web_page_preview=False,
         )
+    elif query.data == "wolf_help":
+        query.message.edit_caption(
+            caption="""*Nᴇᴡ  Tᴏ  WolfXRobot!  Hᴇʀᴇ  Is  Tʜᴇ  Qᴜɪᴄᴋ  Sᴛᴀʀᴛ  Gᴜɪᴅᴇ  Wʜɪᴄʜ  Wɪʟʟ  Hᴇʟᴘ  Yᴏᴜ  Tᴏ  Uɴᴅᴇʀsᴛᴀɴᴅ  Wʜᴀᴛ  Is  WolfXRobot  Aɴᴅ  Hᴏᴡ  Tᴏ  Usᴇ  Iᴛ.
 
+Cʟɪᴄᴋ  Bᴇʟᴏᴡ  Bᴜᴛᴛᴏɴ  Tᴏ  Aᴅᴅ  Bᴏᴛ  Iɴ  Yᴏᴜʀ  Gʀᴏᴜᴘ. Bᴀsɪᴄ  Tᴏᴜʀ  Sᴛᴀʀᴛᴇᴅ  Tᴏ  Kɴᴏᴡ  Aʙᴏᴜᴛ  Hᴏᴡ  Tᴏ  Usᴇ  Mᴇ*""",
+            parse_mode=ParseMode.MARKDOWN,
+            reply_markup=InlineKeyboardMarkup(
+              [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_"),
+                 InlineKeyboardButton(text="𝙉𝙚𝙭𝙩 ➡️", callback_data="wolf_helpa")]
+              ]
+            ),
+        )
+    elif query.data == "wolf_helpa":
+        query.message.edit_caption(
+            caption="""<b>Hᴇʏ,  Wᴇʟᴄᴏᴍᴇ  Tᴏ  Cᴏɴғɪɢᴜʀᴀᴛɪᴏɴ  Tᴜᴛᴏʀɪᴀʟ
 
-@run_async
-def Source_about_callback(update, context):
-    query = update.callback_query
-    if query.data == "source_":
-        query.message.edit_text(
-            text=""" Hi..🤗 I'm *Lonely king*
-                 \nMy source code is private  [support](t.me/thanimaisupport) .""",
+Bᴇғᴏʀᴇ  Wᴇ  Gᴏ,  I  Nᴇᴇᴅ  Aᴅᴍɪɴ  Pᴇʀᴍɪssɪᴏɴs  Iɴ  Tʜɪs  Cʜᴀᴛ  Tᴏ  Wᴏʀᴋ  Pʀᴏᴘᴇʀʟʏ.
+1). Cʟɪᴄᴋ  Mᴀɴᴀɢᴇ  Gʀᴏᴜᴘ.
+2). Gᴏ  Tᴏ  Aᴅᴍɪɴɪsᴛʀᴀᴛᴏʀs  Aɴᴅ  Aᴅᴅ</b>  @WolfXRobot  <b>As  Aᴅᴍɪɴ.
+3). Gɪᴠɪɴɢ  Fᴜʟʟ  Pᴇʀᴍɪssɪᴏɴs  Mᴀᴋᴇ  Tɪᴀɴᴀ  Fᴜʟʟʏ  Usᴇғᴜʟ</b>""",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+              [[InlineKeyboardButton(text="⬅️", callback_data="wolf_help"),
+                InlineKeyboardButton(text="➡️", callback_data="wolf_helpb")],               
+              ]
+            ),
+        )
+    elif query.data == "wolf_helpb":
+        query.message.edit_caption(
+            caption="""*Cᴏɴɢʀᴀɢᴜʟᴀᴛɪᴏɴs,  Tʜɪꜱ  Bᴏᴛ  Nᴏᴡ  Rᴇᴀᴅʏ  Tᴏ  Mᴀɴᴀɢᴇ  Yᴏᴜʀ  Gʀᴏᴜᴘ
+
+Hᴇʀᴇ  Aʀᴇ  Sᴏᴍᴇ  Essᴇɴᴛɪᴀʟᴛ  Tᴏ  Tʀʏ  Oɴ Tɪᴀɴᴀ.
+
+×  Aᴅᴍɪɴ  Tᴏᴏʟs
+ʙᴀsɪᴄ  ᴀᴅᴍɪɴ  ᴛᴏᴏʟs  ʜᴇʟᴘ  ʏᴏᴜ  ᴛᴏ  ᴘʀᴏᴛᴇᴄᴛ  ᴀɴᴅ  ᴘᴏᴡᴇʀᴜᴘ  ʏᴏᴜʀ  ɢʀᴏᴜᴘ
+ʏᴏᴜ  ᴄᴀɴ  ʙᴀɴ  ᴍᴇᴍʙᴇʀs,  ᴋɪᴄᴋ  ᴍᴇᴍʙᴇʀs,  ᴘʀᴏᴍᴏᴛᴇ  sᴏᴍᴇᴏɴᴇ  ᴀs  ᴀᴅᴍɪɴ  ᴛʜʀᴏᴜɢʜ  ᴄᴏᴍᴍᴀɴᴅs  ᴏғ  ʙᴏᴛ
+
+×  Wᴇʟᴄᴏᴍᴇs
+ʟᴇᴛs  sᴇᴛ  ᴀ  ᴡᴇʟᴄᴏᴍᴇ  ᴍᴇssᴀɢᴇ  ᴛᴏ  ᴡᴇʟᴄᴏᴍᴇ  ɴᴇᴡ  ᴜsᴇʀs  ᴄᴏᴍɪɴɢ  ᴛᴏ  ʏᴏᴜʀ  ɢʀᴏᴜᴘ
+sᴇɴᴅ  /setwelcome  [ᴍᴇssᴀɢᴇ]  ᴛᴏ  sᴇᴛ  ᴀ  ᴡᴇʟᴄᴏᴍᴇ  ᴍᴇssᴀɢᴇ
+ᴀʟsᴏ  ʏᴏᴜ  ᴄᴀɴ  sᴛᴏᴘ  ᴇɴᴛᴇʀɪɴɢ  ʀᴏʙᴏᴛs  ᴏʀ  sᴘᴀᴍᴍᴇʀs  ᴛᴏ  ʏᴏᴜʀ  ᴄʜᴀᴛ  ʙʏ  sᴇᴛᴛɪɴɢ  ᴡᴇʟᴄᴏᴍᴇ  ᴄᴀᴘᴛᴄʜᴀ  
+
+Rᴇғᴇʀ  Hᴇʟᴘ  Mᴇɴᴜ  Tᴏ  Sᴇᴇ  Eᴠᴇʀʏᴛʜɪɴɢ  Iɴ  Dᴇᴛᴀɪʟ*""",
+            parse_mode=ParseMode.MARKDOWN,
+            reply_markup=InlineKeyboardMarkup(
+              [
+                [InlineKeyboardButton(text="⬅️", callback_data="wolf_helpa"),
+                 InlineKeyboardButton(text="➡️", callback_data="wolf_helpc")]
+                ]
+            ),
+        )
+    elif query.data == "wolf_helpc":
+        query.message.edit_caption(
+            caption="""*× Fɪʟᴛᴇʀs
+ғɪʟᴛᴇʀs  ᴄᴀɴ  ʙᴇ  ᴜsᴇᴅ  ᴀs  ᴀᴜᴛᴏᴍᴀᴛᴇᴅ  ʀᴇᴘʟɪᴇs/ʙᴀɴ/ᴅᴇʟᴇᴛᴇ  ᴡʜᴇɴ  sᴏᴍᴇᴏɴᴇ  ᴜsᴇ  ᴀ  ᴡᴏʀᴅ  ᴏʀ  sᴇɴᴛᴇɴᴄᴇ
+ғᴏʀ  ᴇxᴀᴍᴘʟᴇ  ɪғ  ɪ  ғɪʟᴛᴇʀ  ᴡᴏʀᴅ  'ʜᴇʟʟᴏ'  ᴀɴᴅ  sᴇᴛ  ʀᴇᴘʟʏ  ᴀs  'ʜɪ'
+ʙᴏᴛ  ᴡɪʟʟ  ʀᴇᴘʟʏ  ᴀs  'ʜɪ'  ᴡʜᴇɴ  sᴏᴍᴇᴏɴᴇ  sᴀʏ  'ʜᴇʟʟᴏ'
+ʏᴏᴜ  ᴄᴀɴ  ᴀᴅᴅ  ғɪʟᴛᴇʀs  ʙʏ  sᴇɴᴅɪɴɢ  /filter  ғɪʟᴛᴇʀ  ɴᴀᴍᴇ
+
+× Aɪ  CʜᴀᴛBᴏᴛ
+ᴡᴀɴᴛ  sᴏᴍᴇᴏɴᴇ  ᴛᴏ  ᴄʜᴀᴛ  ɪɴ  ɢʀᴏᴜᴘ?
+Tɪᴀɴᴀ  ʜᴀs  ᴀɴ  ɪɴᴛᴇʟʟɪɢᴇɴᴛ  ᴄʜᴀᴛʙᴏᴛ  ᴡɪᴛʜ  ᴍᴜʟᴛɪʟᴀɴɢ  sᴜᴘᴘᴏʀᴛ
+ʟᴇᴛ's  ᴛʀʏ  ɪᴛ,
+Sᴇɴᴅ  /chatbot  Oɴ  Aɴᴅ  Rᴇᴘʟʏ  Tᴏ  Aɴʏ  Oғ  Mʏ  Mᴇssᴀɢᴇs  Tᴏ  Sᴇᴇ  Tʜᴇ  Mᴀɢɪᴄ*""",
+            parse_mode=ParseMode.MARKDOWN,
+            reply_markup=InlineKeyboardMarkup(
+              [
+                [InlineKeyboardButton(text="⬅️", callback_data="wolf_helpb"),
+                 InlineKeyboardButton(text="➡️", callback_data="wolf_helpd")]
+                ]
+            ),
+        )
+    elif query.data == "wolf_helpd":
+        query.message.edit_caption(
+            
+caption="""*× Sᴇᴛᴛɪɴɢ  Uᴘ  Nᴏᴛᴇs
+ʏᴏᴜ  ᴄᴀɴ  sᴀᴠᴇ  ᴍᴇssᴀɢᴇ/ᴍᴇᴅɪᴀ/ᴀᴜᴅɪᴏ  ᴏʀ  ᴀɴʏᴛʜɪɴɢ  ᴀs  ɴᴏᴛᴇs ᴜsɪɴɢ /notes
+ᴛᴏ  ɢᴇᴛ  ᴀ  ɴᴏᴛᴇ  sɪᴍᴘʟʏ  ᴜsᴇ  #  ᴀᴛ  ᴛʜᴇ  ʙᴇɢɪɴɴɪɴɢ  ᴏғ  ᴀ  ᴡᴏʀᴅ
+sᴇᴇ  ᴛʜᴇ  ɪᴍᴀɢᴇ..
+
+× Sᴇᴛᴛɪɴɢ  Uᴘ  Nɪɢʜᴛᴍᴏᴅᴇ
+ʏᴏᴜ  ᴄᴀɴ  sᴇᴛ  ᴜᴘ  ɴɪɢʜᴛᴍᴏᴅᴇ  ᴜsɪɴɢ  /nightmode  ᴏɴ/ᴏғғ  ᴄᴏᴍᴍᴀɴᴅ.
+
+Nᴏᴛᴇ-  ɴɪɢʜᴛ  ᴍᴏᴅᴇ  ᴄʜᴀᴛs  ɢᴇᴛ  ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ  ᴄʟᴏsᴇᴅ  ᴀᴛ  12ᴘᴍ(ɪsᴛ)
+ᴀɴᴅ  ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ  ᴏᴘᴇɴɴᴇᴅ  ᴀᴛ  6ᴀᴍ(ɪsᴛ)  ᴛᴏ  ᴘʀᴇᴠᴇɴᴛ  ɴɪɢʜᴛ  sᴘᴀᴍs.*""",
+            parse_mode=ParseMode.MARKDOWN,
+            reply_markup=InlineKeyboardMarkup(
+              [
+                [InlineKeyboardButton(text="⬅️", callback_data="wolf_helpc"),
+                 InlineKeyboardButton(text="➡️", callback_data="wolf_helpe")]
+                ]
+            ),
+        )
+    elif query.data == "wolf_term":
+        query.message.edit_caption(
+           caption="""✗ *Terms and Conditions:*
+
+- Only your first name, last name (if any) and username (if any) is stored for a convenient communication!
+- No group ID or it's messages are stored, we respect everyone's privacy.
+- Messages between Bot and you is only infront of your eyes and there is no backuse of it.
+- Watch your group, if someone is spamming your group, you can use the report feature of your Telegram Client.
+- Do not spam commands, buttons, or anything in bot PM.
+
+*NOTE:* Terms and Conditions might change anytime
+
+*Updates Channel:* @Glaston_Knights_Union
+*Support Chat:* @PlayBoysDXD""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
+                [[
+                InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="about_")]]
+            ),
+        )
+    elif query.data == "wolf_helpe":
+        query.message.edit_caption(
+            caption="""*× Sᴏ  Nᴏᴡ  Yᴏᴜ  Aʀᴇ  Aᴛ  Tʜᴇ  Eɴᴅ  Oғ  Bᴀsɪᴄ  Tᴏᴜʀ.  Bᴜᴛ  Tʜɪs  Is  Nᴏᴛ  Aʟʟ  I  Cᴀɴ  Dᴏ.
+
+Sᴇɴᴅ  /help  Iɴ  Bᴏᴛ  Pᴍ  Tᴏ  Aᴄᴄᴇss  Hᴇʟᴘ  Mᴇɴᴜ
+
+Tʜᴇʀᴇ  Aʀᴇ  Mᴀɴʏ  Hᴀɴᴅʏ  Tᴏᴏʟs  Tᴏ  Tʀʏ  Oᴜᴛ.  
+Aɴᴅ  Aʟsᴏ  Iғ  Yᴏᴜ  Hᴀᴠᴇ  Aɴʏ  Sᴜɢɢᴇssɪᴏɴs  Aʙᴏᴜᴛ  Mᴇ,  Dᴏɴ'ᴛ  Fᴏʀɢᴇᴛ  Tᴏ  tᴇʟʟ  Tʜᴇᴍ  Tᴏ  Dᴇᴠs
+
+Aɢᴀɪɴ  Tʜᴀɴᴋs  Fᴏʀ  Usɪɴɢ  Mᴇ
+
+× Bʏ  Usɪɴɢ  Tʜɪꜱ  Bᴏᴛ  Yᴏᴜ  Aʀᴇ  Aɢʀᴇᴇᴅ  Tᴏ  Oᴜʀ  Tᴇʀᴍs  &  Cᴏɴᴅɪᴛɪᴏɴs*""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="➕ Aʟʟ Cᴏᴍᴍᴀɴᴅs  ➕", callback_data="help_back")],
+                [InlineKeyboardButton(text="⬅️", callback_data="wolf_helpd")]]
+            ),
+        )
+    elif query.data == "wolf_music":
+        query.message.edit_caption(
+            caption="""✗ *Hᴇʀᴇ Iꜱ Tʜᴇ Hᴇʟᴘ 「Aꜱꜱɪꜱᴛᴀɴᴛ」 Mᴏᴅᴜʟᴇ:
+            
+✗ Step No 1 first, add me to your group.
+✗ Step No 2 then promote me as admin and give all permissions except anonymous admin.
+✗ Step No 3 add @wolf_Assitant to your group.
+✗ Step No 4 turn on the video chat first before start to play music.
+✗ Step No 5 Lets Enjoy The Wolf X Music And Join Support Group @PlayBoysDXD
+✗ Pᴏᴡᴇʀᴇᴅ Bʏ: @Glaston_Knights_Union*""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+               [[InlineKeyboardButton(text="Pʟᴀʏ Cᴏᴍᴍᴀɴᴅs", callback_data="wolf_musica"),
+                 InlineKeyboardButton(text="Bᴏᴛ Cᴏᴍᴍᴀɴᴅs", callback_data="wolf_musicc")],
+                [InlineKeyboardButton(text="Aᴅᴍɪɴ Cᴏᴍᴍᴀɴᴅs", callback_data="wolf_musicb"),
+                 InlineKeyboardButton(text="Eᴀᴛʀᴀ Cᴏᴍᴍᴀɴᴅs", callback_data="wolf_musicd")],
+                [InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_")]
+               ]
+            ),
+        )
+    elif query.data == "wolf_musica":
+        query.message.edit_caption(
+            caption="""✗*Here is the help for Play Commands*:
+
+*Note*: wolf Music Bot works on a single merged commands for Music and Video
+
+✗ *Youtube and Telegram Files*:
+
+/play [Reply to any Video or Audio] or [YT Link] or [Music Name]  
+- Stream Video or Music on Voice Chat by selecting inline Buttons you get
+
+
+✗ *wolf Database Saved Playlists*:
+
+/createplaylist
+- Create Your Playlist on wolf's Server with Custom Name
+
+/playlist 
+- Check Your Saved Playlist On Servers.
+
+/deleteplaylist
+- Delete any saved music in your playlist
+
+/playplaylist 
+- Start playing Your Saved Playlist on wolf Servers.""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_music")]]
+            ),
+        )
+    elif query.data == "wolf_musicb":
+        query.message.edit_caption(
+            caption="""✗ *Here is the help for Admin Commands*:
+
+
+✗ *Admin Commands*:
+
+/pause 
+- Pause the playing music on voice chat.
+
+/resume
+- Resume the paused music on voice chat.
+
+/skip
+- Skip the current playing music on voice chat
+
+/end or /stop
+- Stop the playout.
+
+
+✗ *Authorised Users List*:
+
+wolf has a additional feature for non-admin users who want to use admin commands
+-Auth users can skip, pause, stop, resume Voice Chats even without Admin Rights.
+
+
+/auth [Username or Reply to a Message] 
+- Add a user to AUTH LIST of the group.
+
+/unauth [Username or Reply to a Message] 
+- Remove a user from AUTH LIST of the group.
+
+/authusers 
+- Check AUTH LIST of the group.""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_music")]]
+            ),
+        )
+    elif query.data == "wolf_musicc":
+        query.message.edit_caption(
+            caption="""✗ *Here is the help for Bot Commands*:
+
+
+/start 
+- Start the wolf Music Bot.
+
+/help 
+- Get Commands Helper Menu with detailed explanations of commands.
+
+/settings 
+- Get Settings dashboard of a group. You can manage Auth Users Mode. Commands Mode from here.
+
+/ping
+- Ping the Bot and check Ram, Cpu etc stats of wolf.""",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_music")]]
+            ),
+        )
+    elif query.data == "wolf_musicd":
+        query.message.edit_caption(
+            caption=""" *Here is the help for Extra Commands*:
+
+
+
+/lyrics [Music Name]
+- Searches Lyrics for the particular Music on web.
+
+/sudolist 
+- Check Sudo Users of wolf Music Bot
+
+/song [Track Name] or [YT Link]
+- Download any track from youtube in mp3 or mp4 formats via wolf.
+
+/queue
+- Check Queue List of Music.
+
+/cleanmode [Enable|Disable]
+- When enabled, wolf will be deleting her 3rd last message to keep your chat clean.""",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_music")]]
+            ),
+        )
+    elif query.data == "wolf_about":
+        query.message.edit_caption(
+            caption= """WolfXRobot it's online since January 2022 and it's constantly updated!
+            
+Bot Admins
+                       
+• @HMF_Owner_1, bot creator and main developer.
+            
+• The Doctor, server manager and developer.
+            
+• Manuel 5, developer.
+            
+Support
+            
+• [Click here](https://t.me/PlayBoysDXD) to consult the updated list of Official Supporters of the bot.
+            
+• Thanks to all our donors for supporting server and development expenses and all those who have reported bugs or suggested new features.
+            
+• We also thank all the groups who rely on our Bot for this service, we hope you will always like it: we are constantly working to improve it!""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="about_")]]
+            ),
+        )
+    elif query.data == "wolf_support":
+        query.message.edit_caption(
+            caption="""*WolfXRobot Support Chats*""",
+            parse_mode=ParseMode.MARKDOWN,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                 [InlineKeyboardButton(text="Sᴜᴘᴘᴏʀᴛ", url=f"https://t.me/PlayBoysDXD"),                           
+                    InlineKeyboardButton(text="Uᴘᴅᴀᴛᴇꜱ", url=f"https://t.me/Glaston_Knights_Union")],
+                    [InlineKeyboardButton(text="Mᴏᴠɪᴇs", url=f"https://t.me/+uzQ0M7QIQeQ2NWI9"),
+                     InlineKeyboardButton(text="Lᴏɢs", url=f"https://t.me/KawaiiXLogs")],
+                    [InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="about_")],
+                 ]
+            ),
+        )
+    elif query.data == "wolf_tools":
+        query.message.edit_caption(
+            caption="""*Here is the help for the tools module:
+We promise to keep you latest up-date with the latest technology on telegram. 
+we updradge wolfBot everyday to simplifie use of telegram and give a better exprince to users.
+
+Click on below buttons and check amazing tools for users.*""",
+            parse_mode=ParseMode.MARKDOWN,
+            reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="Go Back", callback_data="source_back")
+                    InlineKeyboardButton(text="Sᴇᴀʀᴄʜ", callback_data="wolf_toola"),
+                    InlineKeyboardButton(text="Tᴀɢᴀʟʟ", callback_data="wolf_toolb"),
+                    InlineKeyboardButton(text="Kᴀʀᴍᴀ", callback_data="wolf_toolc"),
+                 ],
+                 [
+                    InlineKeyboardButton(text="Fᴏɴᴛ Gᴇɴ", callback_data="wolf_toold"),
+                    InlineKeyboardButton(text="Pᴀꜱᴛᴇ", callback_data="wolf_toole"),
+                    InlineKeyboardButton(text="Tᴇʟᴇɢʀᴀᴘʜ", callback_data="wolf_toolf"),
+                 ],
+                 [
+                    InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_"),
+                 
                  ]
                 ]
             ),
         )
-    elif query.data == "source_back":
-        query.message.edit_text(
-                PM_START_TEXT,
+    elif query.data == "wolf_toola":
+        query.message.edit_caption(
+            caption="""「 Hᴇʟᴘ ᴏғ Sᴇᴀʀᴄʜ 」:
+
+ ❍ /google text: Perform a google search
+ ❍ /img text: Search Google for images and returns them
+ ❍ /app appname: Searches for an app in Play Store and returns its details.
+ ❍ /reverse: Does a reverse image search of the media which it was replied to.""",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_tools")]]
+            ),
+        )
+    elif query.data == "wolf_toolb":
+        query.message.edit_caption(
+            caption="""「 Hᴇʟᴘ ᴏғ Tᴀɢᴀʟʟ 」:
+
+ ❍ /tagall or @all '(reply to message or add another message) To mention all members in your group, without exception.
+
+Note- Only admins can Use Tagall Command.""",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_tools")]]
+            ),
+        )
+    elif query.data == "wolf_toolc":
+        query.message.edit_caption(
+            caption="""「 Hᴇʟᴘ ᴏғ Kᴀʀᴍᴀ 」:
+
+UPVOTE - Use upvote keywords like "+", "+1", "thanks" etc to upvote a cb.message.
+DOWNVOTE - Use downvote keywords like "-", "-1", etc to downvote a cb.message.
+
+- /karma ON/OFF: Enable/Disable karma in group. 
+- /karma Reply to a message: Check user's karma
+- /karma: Chek karma list of top 10 users""",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_tools")]]
+            ),
+        )
+    elif query.data == "wolf_toold":
+        query.message.edit_caption(
+            caption="""「 Hᴇʟᴘ ᴏғ Fᴏɴᴛ Gᴇɴ 」:
+
+ - /weebify text: weebify your text!
+ - /bis text: bold your text!
+ - /bi text: bold-italic your text!
+ - /tiny text: tiny your text!
+ - /fsquare text: square-filled your text!
+ - /blue text: bluify your text!
+ - /latin text: latinify your text!
+ - /lined text: lined your text!""",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_tools")]]
+            ),
+        )
+    elif query.data == "wolf_toole":
+        query.message.edit_caption(
+            caption="""「 Hᴇʟᴘ ᴏғ Pᴀꜱᴛᴇ 」:
+
+ ❍ /paste: Saves replied content to replies with a url""",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_tools")]]
+            ),
+        )
+    elif query.data == "wolf_toolf":
+        query.message.edit_caption(
+            caption="""「 Hᴇʟᴘ ᴏғ Tᴇʟᴇɢʀᴀᴘʜ 」:
+
+ ❍ /tm :Get Telegraph Link Of Replied Media
+ ❍ /txt :Get Telegraph Link of Replied Text""",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_tools")]]
+            ),
+        )
+    elif query.data == "wolf_source":
+        query.message.edit_caption(
+            caption="""*WolfXRobot is Now Open Private Bot Project.*
+
+*Click below Button to Get Source Code.*""",
+            parse_mode=ParseMode.MARKDOWN,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                 [
+                    InlineKeyboardButton(text="📄Rᴇᴘᴏ Pʀɪᴠᴀᴛᴇ ", url="https://github.com/Thiruselvan999/God-of-Wolf-New"),
+                 ]
+                ]
+            ),
+        )
+    elif query.data == "wolf_vida":
+        query.message.reply_video(
+            wolf_VIDA,
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,           
+        )
+    elif query.data == "wolf_vidb":
+        query.message.reply_video(
+            wolf_VIDB,
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,           
+        )
+        
+@run_async
+def wolf_about_callback(update: Update, context: CallbackContext):
+    query = update.callback_query
+    if query.data == "about_":
+        query.message.edit_caption(
+            Caption="""𝘾𝙇𝙄𝘾𝙆 𝘽𝙀𝙇𝙊𝙒 𝘽𝙐𝙏𝙏𝙊𝙉 𝙁𝙊𝙍 𝙆𝙉𝙊𝙒 𝙈𝙊𝙍𝙀 𝘼𝘽𝙊𝙐𝙏 𝙈𝙀""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+               [
+                 [
+                     InlineKeyboardButton(text="❗️ Aʙᴏᴜᴛ ", callback_data="wolf_about"),
+                     InlineKeyboardButton(text="📄 Sᴏᴜʀᴄᴇ ", callback_data="wolf_source"),
+                 ],
+                 [  
+                    InlineKeyboardButton(text="🫂 Sᴜᴘᴘᴏʀᴛ ", callback_data="wolf_support"),
+                    InlineKeyboardButton(text="👨‍✈️ Oᴡɴᴇʀ ", url="t.me/HMf_Owner_1"),
+                 ],
+                 [
+                     InlineKeyboardButton(text="Tᴇʀᴍs Aɴᴅ Cᴏɴᴅɪᴛɪᴏɴs ❗️", callback_data="wolf_term"),
+                 ],
+                 [
+                     InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="about_back"),
+                 ]    
+               ]
+            ),
+        )
+    elif query.data == "about_back":
+        first_name = update.effective_user.first_name
+        uptime = get_readable_time((time.time() - StartTime))
+        query.message.edit_caption(
+                photo=random.choice(AASF),
+                caption=PM_START_TEXT.format(
+                    escape_markdown(first_name),
+                    sql.num_users(),
+                    sql.num_chats()),
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
-                disable_web_page_preview=True,
+                disable_web_page_preview=False,
         )
 
 @run_async
