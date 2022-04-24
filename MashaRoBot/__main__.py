@@ -104,6 +104,12 @@ All commands can either be used with / OR !."""
 START_IMG = "https://telegra.ph/file/91d3a167481da71ab5b44.mp4"
 MASHA_IMG = "https://telegra.ph/file/7aba4b67279c844454b4c.jpg"
 
+WOLF_IMG = (
+      "https://telegra.ph/file/9332b113ddb8555bf6ffe.jpg",
+      "https://telegra.ph/file/fbc20e462231564a7407f.jpg",
+      "https://telegra.ph/file/45df1a2dcf2e385d5cb7b.jpg",
+
+
 DONATE_STRING = """Heya, glad to hear you want to donate!
  You can support the project via [Paypal](ko-fi.com/sawada) or by contacting @Sawada \
  Supporting isnt always financial! \
@@ -387,7 +393,7 @@ def wolf_callback_handler(update, context):
         first_name = update.effective_user.first_name
         uptime = get_readable_time((time.time() - StartTime))
         query.message.edit_caption(
-                photo=random.choice(AASF),
+                photo=random.choice(WOLF_IMG),
                 caption=PM_START_TEXT.format(
                     escape_markdown(first_name),
                     sql.num_users(),
@@ -870,7 +876,7 @@ def wolf_about_callback(update: Update, context: CallbackContext):
         first_name = update.effective_user.first_name
         uptime = get_readable_time((time.time() - StartTime))
         query.message.edit_caption(
-                photo=random.choice(AASF),
+                photo=random.choice(WOLF_IMG),
                 caption=PM_START_TEXT.format(
                     escape_markdown(first_name),
                     sql.num_users(),
