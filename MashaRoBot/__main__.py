@@ -225,23 +225,33 @@ def start(update: Update, context: CallbackContext):
                 timeout=60,
             )
     else:
-           update.effective_message.reply_video(
-            START_IMG, caption= "<code>I'm awake already!\nHaven't slept since</code>: <code>{}</code>".format(
-                uptime
-            ),
-            parse_mode=ParseMode.HTML,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                  [
-                  InlineKeyboardButton(text="Sᴜᴘᴘᴏʀᴛ", url="https://t.me/thanimaisupport")
-                  ],
-                  [
-                  InlineKeyboardButton(text="Uᴘᴅᴀᴛᴇs", url="https://t.me/thanimaibots")
+          first_name = update.effective_user.first_name
+          update.effective_message.reply_photo(
+          photo=random.choice(AASF), caption="""*Hᴇʟʟᴏ {} !*
+───────────────────
+× *I'ᴍ Aɴɪᴍᴇ-Tʜᴇᴍᴇ Gʀᴏᴜᴘ Mᴀɴᴀɢᴇᴍᴇɴᴛ Bᴏᴛ*
+× *I'ᴍ Vᴇʀʏ Fᴀꜱᴛ Aɴᴅ Mᴏʀᴇ Eꜰꜰɪᴄɪᴇɴᴛ I Pʀᴏᴠɪᴅᴇ Aᴡᴇꜱᴏᴍᴇ Fᴇᴀᴛᴜʀᴇꜱ!*
+───────────────────
+× *Uᴘᴛɪᴍᴇ:* `{}`
+× `{}` *Uꜱᴇʀ, Aᴄʀᴏꜱꜱ* `{}` *Cʜᴀᴛꜱ.*
+───────────────────
+× *Pᴏᴡᴇʀᴇᴅ Bʏ: [Pℓαყ Bσys ƊҲƊ](t.me/playBoysDXD)!*
+───────────────────""".format(
+                    escape_markdown(first_name),
+                    escape_markdown(uptime),
+                    sql.num_users(),
+                    sql.num_chats()),
+                reply_markup=InlineKeyboardMarkup(
+                 [
+                  [InlineKeyboardButton(text="☑️ฬ๏lŦ ✗ t๏ ץ๏ยг Gɾ๏υρ☑️", url="t.me/WolfXRobot?startgroup=true"),
+                    ],                           
+                    [InlineKeyboardButton(text="🧨ѕυρρ๏яτ🎈", callback_data="wolf_support"),
+                    InlineKeyboardButton(text="🎀αɓουτ🔎", callback_data="about_")],
+                    [InlineKeyboardButton(text="👑οωиєя🦁", url="https://t.me/HMF_OWNER_1")],
                   ]
-                ]
-            ),
-        )
-
+              ),
+                parse_mode=ParseMode.MARKDOWN,              
+            )
 
 def error_handler(update, context):
     """Log the error and send a telegram message to notify the developer."""
