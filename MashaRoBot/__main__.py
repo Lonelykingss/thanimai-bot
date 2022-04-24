@@ -428,8 +428,8 @@ elif query.data == "simplecmd":
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
-               [[InlineKeyboardButton(text="Pʟᴀʏ Cᴏᴍᴍᴀɴᴅs", callback_data="simplea"),
-                 InlineKeyboardButton(text="Bᴏᴛ Cᴏᴍᴍᴀɴᴅs", callback_data="simplec")],
+               [[InlineKeyboardButton(text="Basic Commands", callback_data="simplea"),
+                 InlineKeyboardButton(text="Expert Commands", callback_data="simpleb")],
                 [InlineKeyboardButton(text="Aᴅᴍɪɴ Cᴏᴍᴍᴀɴᴅs", callback_data="simpleb"),
                  InlineKeyboardButton(text="Eᴀᴛʀᴀ Cᴏᴍᴍᴀɴᴅs", callback_data="simpled")],
                 [InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_")]
@@ -460,7 +460,7 @@ elif query.data == "simplecmd":
 
 ◽️ /Admins gives the complete List of group Staff
 
-✗ Pᴏᴡᴇʀᴇᴅ 🔥 Bʏ: Kɪɢᴏ!.""",
+✗ Pᴏᴡᴇʀᴇᴅ 🔥 Bʏ: Thanamai!.""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
@@ -469,38 +469,26 @@ elif query.data == "simplecmd":
         )
     elif query.data == "simpleb":
         query.message.edit_caption(
-            caption="""✗ *Here is the help for Admin Commands*:
+            caption="""Advanced Commands
 
+🕵🏻 Available to Admins
+👮🏻 Available to Admins&Moderators
+🛃 Available to Admins&Cleaners
 
-✗ *Admin Commands*:
+WARN MANAGEMENT
+👮🏻  /warn adds a warn to the user
+👮🏻  /unwarn removes a warn to the user
+👮🏻  /warns lets you see and manage user warns
+🕵🏻  /delwarn deletes the message and add a warn to the user
 
-/pause 
-- Pause the playing music on voice chat.
+🛃 /del deletes the selected message
+🛃 /tban tban is ban for time
+Ex 💡 :- /tban 1m
 
-/resume
-- Resume the paused music on voice chat.
+🕵🏻 /feedback to feedback of kigo
+  ➡️ Example: /feedback null bo!
 
-/skip
-- Skip the current playing music on voice chat
-
-/end or /stop
-- Stop the playout.
-
-
-✗ *Authorised Users List*:
-
-wolf has a additional feature for non-admin users who want to use admin commands
--Auth users can skip, pause, stop, resume Voice Chats even without Admin Rights.
-
-
-/auth [Username or Reply to a Message] 
-- Add a user to AUTH LIST of the group.
-
-/unauth [Username or Reply to a Message] 
-- Remove a user from AUTH LIST of the group.
-
-/authusers 
-- Check AUTH LIST of the group.""",
+✗ Pᴏᴡᴇʀᴇᴅ 🔥 Bʏ: Thanamai!""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
