@@ -220,7 +220,7 @@ def start(update: Update, context: CallbackContext):
             )
     else:
            update.effective_message.reply_video(
-            START_IMG, caption= "<code>I'm awake already!\nHaven't slept since</code>: <code>{}</code>".format(
+            START_IMG, text= "<code>I'm awake already!\nHaven't slept since</code>: <code>{}</code>".format(
                 uptime
             ),
             parse_mode=ParseMode.HTML,
@@ -399,8 +399,8 @@ def Masha_about_callback(update, context):
 def wolf_callback_handler(update, context):
     query = update.callback_query
     if query.data == "wolf_":
-        query.message.edit_caption(
-            caption="""Hey there! My name is KIGO
+        query.message.edit_text(
+            text="""Hey there! My name is KIGO
 ✗ MAIN COMMANDS ✗
 
 ✗ /start - Starts me! Your probably already used this.
@@ -423,8 +423,8 @@ def wolf_callback_handler(update, context):
         )
 
 elif query.data == "simplecmd":
-        query.message.edit_caption(
-            caption="""Welcome to the Simple help menu!""",
+        query.message.edit_text(
+            text="""Welcome to the Simple help menu!""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
@@ -437,8 +437,8 @@ elif query.data == "simplecmd":
             ),
         )
     elif query.data == "simplea":
-        query.message.edit_caption(
-            caption="""✗ Base Commands
+        query.message.edit_text(
+            text="""✗ Base Commands
 
 👮🏻 Available to Admins&Moderators
 🕵🏻 Available to Admins
@@ -468,8 +468,8 @@ elif query.data == "simplecmd":
             ),
         )
     elif query.data == "simpleb":
-        query.message.edit_caption(
-            caption="""Advanced Commands
+        query.message.edit_text(
+            text="""Advanced Commands
 
 🕵🏻 Available to Admins
 👮🏻 Available to Admins&Moderators
@@ -496,8 +496,8 @@ Ex 💡 :- /tban 1m
             ),
         )
     elif query.data == "simplec":
-        query.message.edit_caption(
-            caption="""Expert commands
+        query.message.edit_text(
+            text="""Expert commands
 
 👥 Available to all users
 👮🏻 Available to Admins&Moderators
@@ -523,8 +523,8 @@ Pinned Messages
             ),
         )
     elif query.data == "simpled":
-        query.message.edit_caption(
-            caption=""" ✗ /get - <notename> get the note with this notename
+        query.message.edit_text(
+            text=""" ✗ /get - <notename> get the note with this notename
 
 ✗ <notename> same as /get
 
@@ -567,8 +567,8 @@ buttonurl:  section, as such: [somelink](buttonurl:example.com). Check /markdown
         )
 
 elif query.data == "wolf_tools":
-        query.message.edit_caption(
-            caption="""*Here is the help for the tools module:
+        query.message.edit_text(
+            text="""*Here is the help for the tools module:
 We promise to keep you latest up-date with the latest technology on telegram. 
 we updradge wolfBot everyday to simplifie use of telegram and give a better exprince to users.
 
@@ -594,8 +594,8 @@ Click on below buttons and check amazing tools for users.*""",
             ),
         )
     elif query.data == "wolf_toola":
-        query.message.edit_caption(
-            caption="""「 Hᴇʟᴘ ᴏғ Sᴇᴀʀᴄʜ 」:
+        query.message.edit_text(
+            text="""「 Hᴇʟᴘ ᴏғ Sᴇᴀʀᴄʜ 」:
 
  ❍ /google text: Perform a google search
  ❍ /img text: Search Google for images and returns them
@@ -607,8 +607,8 @@ Click on below buttons and check amazing tools for users.*""",
             ),
         )
     elif query.data == "wolf_toolb":
-        query.message.edit_caption(
-            caption="""「 Hᴇʟᴘ ᴏғ Tᴀɢᴀʟʟ 」:
+        query.message.edit_text(
+            text="""「 Hᴇʟᴘ ᴏғ Tᴀɢᴀʟʟ 」:
 
  ❍ /tagall or @all '(reply to message or add another message) To mention all members in your group, without exception.
 
@@ -619,8 +619,8 @@ Note- Only admins can Use Tagall Command.""",
             ),
         )
     elif query.data == "wolf_toolc":
-        query.message.edit_caption(
-            caption="""「 Hᴇʟᴘ ᴏғ Kᴀʀᴍᴀ 」:
+        query.message.edit_text(
+            text="""「 Hᴇʟᴘ ᴏғ Kᴀʀᴍᴀ 」:
 
 UPVOTE - Use upvote keywords like "+", "+1", "thanks" etc to upvote a cb.message.
 DOWNVOTE - Use downvote keywords like "-", "-1", etc to downvote a cb.message.
@@ -634,8 +634,8 @@ DOWNVOTE - Use downvote keywords like "-", "-1", etc to downvote a cb.message.
             ),
         )
     elif query.data == "wolf_toold":
-        query.message.edit_caption(
-            caption="""「 Hᴇʟᴘ ᴏғ Fᴏɴᴛ Gᴇɴ 」:
+        query.message.edit_text(
+            text="""「 Hᴇʟᴘ ᴏғ Fᴏɴᴛ Gᴇɴ 」:
 
  - /weebify text: weebify your text!
  - /bis text: bold your text!
@@ -651,8 +651,8 @@ DOWNVOTE - Use downvote keywords like "-", "-1", etc to downvote a cb.message.
             ),
         )
     elif query.data == "wolf_toole":
-        query.message.edit_caption(
-            caption="""「 Hᴇʟᴘ ᴏғ Pᴀꜱᴛᴇ 」:
+        query.message.edit_text(
+            text="""「 Hᴇʟᴘ ᴏғ Pᴀꜱᴛᴇ 」:
 
  ❍ /paste: Saves replied content to replies with a url""",
             parse_mode=ParseMode.HTML,
@@ -661,8 +661,8 @@ DOWNVOTE - Use downvote keywords like "-", "-1", etc to downvote a cb.message.
             ),
         )
     elif query.data == "wolf_toolf":
-        query.message.edit_caption(
-            caption="""「 Hᴇʟᴘ ᴏғ Tᴇʟᴇɢʀᴀᴘʜ 」:
+        query.message.edit_text(
+            text="""「 Hᴇʟᴘ ᴏғ Tᴇʟᴇɢʀᴀᴘʜ 」:
 
  ❍ /tm :Get Telegraph Link Of Replied Media
  ❍ /txt :Get Telegraph Link of Replied Text""",
@@ -672,8 +672,8 @@ DOWNVOTE - Use downvote keywords like "-", "-1", etc to downvote a cb.message.
             ),
         )
 elif query.data == "wolf_music":
-        query.message.edit_caption(
-            caption="""✗ *Hᴇʀᴇ Iꜱ Tʜᴇ Hᴇʟᴘ 「Aꜱꜱɪꜱᴛᴀɴᴛ」 Mᴏᴅᴜʟᴇ:
+        query.message.edit_text(
+            text="""✗ *Hᴇʀᴇ Iꜱ Tʜᴇ Hᴇʟᴘ 「Aꜱꜱɪꜱᴛᴀɴᴛ」 Mᴏᴅᴜʟᴇ:
             
 ✗ Step No 1 first, add me to your group.
 ✗ Step No 2 then promote me as admin and give all permissions except anonymous admin.
@@ -693,8 +693,8 @@ elif query.data == "wolf_music":
             ),
         )
     elif query.data == "wolf_musica":
-        query.message.edit_caption(
-            caption="""✗*Here is the help for Play Commands*:
+        query.message.edit_text(
+            text="""✗*Here is the help for Play Commands*:
 
 *Note*: wolf Music Bot works on a single merged commands for Music and Video
 
@@ -724,8 +724,8 @@ elif query.data == "wolf_music":
             ),
         )
     elif query.data == "wolf_musicb":
-        query.message.edit_caption(
-            caption="""✗ *Here is the help for Admin Commands*:
+        query.message.edit_text(
+            text="""✗ *Here is the help for Admin Commands*:
 
 
 ✗ *Admin Commands*:
@@ -764,8 +764,8 @@ wolf has a additional feature for non-admin users who want to use admin commands
             ),
         )
     elif query.data == "wolf_musicc":
-        query.message.edit_caption(
-            caption="""✗ *Here is the help for Bot Commands*:
+        query.message.edit_text(
+            text="""✗ *Here is the help for Bot Commands*:
 
 
 /start 
@@ -785,8 +785,8 @@ wolf has a additional feature for non-admin users who want to use admin commands
             ),
         )
     elif query.data == "wolf_musicd":
-        query.message.edit_caption(
-            caption=""" *Here is the help for Extra Commands*:
+        query.message.edit_text(
+            text=""" *Here is the help for Extra Commands*:
 
 
 
