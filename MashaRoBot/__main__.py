@@ -1,27 +1,13 @@
 import importlib
 import time
-import random
 import re
 from sys import argv
 from typing import Optional
 import MashaRoBot.modules.sql.users_sql as sql
-
-from MashaRoBot import (
-    ALLOW_EXCL,
-    CERT_PATH,
-    LOGGER,
-    OWNER_ID,
-    PORT,
-    TOKEN,
-    URL,
-    WEBHOOK,
-    SUPPORT_CHAT,
-    dispatcher,
-    StartTime,
-    telethn,
-    pbot,
-    updater,
-)
+import MashaRoBot.modules.sql.users_sql as sql
+from MashaRoBot import (ALLOW_EXCL, CERT_PATH, DONATION_LINK, LOGGER,
+                          OWNER_ID, PORT, SUPPORT_CHAT, TOKEN, URL, WEBHOOK,
+                          SUPPORT_CHAT, dispatcher, StartTime, telethn, updater, pbot)
 
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
@@ -46,6 +32,7 @@ from telegram.ext import (
 )
 from telegram.ext.dispatcher import DispatcherHandlerStop, run_async
 from telegram.utils.helpers import escape_markdown
+
 
 def get_readable_time(seconds: int) -> str:
     count = 0
@@ -89,7 +76,7 @@ buttons = [
             text="Aᴅᴅ Mᴇ 🥰", url="t.me/FINAL_STRIKER_BOT?startgroup=true"),
     ],
     [
-        InlineKeyboardButton(text="Cᴏᴍᴍᴀɴᴅs ❔", callback_data="wolf_"),
+        InlineKeyboardButton(text="Cᴏᴍᴍᴀɴᴅs ❔", callback_data="help_back"),
     ],
     [
         InlineKeyboardButton(text="Dᴇᴠʟᴏᴘᴇʀ🤓", url="https://t.me/TheTelegrampro"),
@@ -116,12 +103,6 @@ All commands can either be used with / OR !."""
 
 START_IMG = "https://telegra.ph/file/91d3a167481da71ab5b44.mp4"
 MASHA_IMG = "https://telegra.ph/file/7aba4b67279c844454b4c.jpg"
-
-WOLF_IMG = (
-      "https://telegra.ph/file/9332b113ddb8555bf6ffe.jpg",
-      "https://telegra.ph/file/fbc20e462231564a7407f.jpg",
-      "https://telegra.ph/file/45df1a2dcf2e385d5cb7b.jpg",
-
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
  You can support the project via [Paypal](ko-fi.com/sawada) or by contacting @Sawada \
@@ -151,9 +132,6 @@ for module_name in ALL_MODULES:
     if hasattr(imported_module, "__help__") and imported_module.__help__:
         HELPABLE[imported_module.__mod_name__.lower()] = imported_module
 
-    if hasattr(imported_module, "__sub_mod__") and imported_module.__sub_mod__:
-        SUB_MODE[imported_module.__mod_name__.lower()] = imported_module
-
     # Chats to migrate on chat_migrated events
     if hasattr(imported_module, "__migrate__"):
         MIGRATEABLE.append(imported_module)
@@ -181,13 +159,13 @@ for module_name in ALL_MODULES:
 def send_help(chat_id, text, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
-    dispatcher.bot.send_photo(
+    dispatcher.bot.send_message(
         chat_id=chat_id,
-        photo=random.choice(WOLF_IMG),
         text=text,
         parse_mode=ParseMode.MARKDOWN,
-        reply_markup=keyboard)
-   
+        disable_web_page_preview=True,
+        reply_markup=keyboard,
+    )
 
 
 @run_async
@@ -231,22 +209,6 @@ def start(update: Update, context: CallbackContext):
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
-             first_name = update.effective_user.first_name
-             update.effective_message.reply_photo(
-               photo=random.choice(WOLF_IMG),
-               text=PM_START_TEXT.format(
-                    escape_markdown(first_name),
-                    escape_markdown(uptime),
-                    sql.num_users(),
-                    sql.num_chats()),                        
-                reply_markup=InlineKeyboardMarkup(buttons),
-                parse_mode=ParseMode.MARKDOWN,
-                timeout=60,
-          )
-
-
-    
-        else:
             update.effective_message.reply_text(
                 PM_START_TEXT.format(
                     
@@ -257,34 +219,22 @@ def start(update: Update, context: CallbackContext):
                 timeout=60,
             )
     else:
-          first_name = update.effective_user.first_name
-          update.effective_message.reply_photo(
-          photo=random.choice(WOLF_IMG), text="""*Hᴇʟʟᴏ {} !*
-───────────────────
-× *I'ᴍ Aɴɪᴍᴇ-Tʜᴇᴍᴇ Gʀᴏᴜᴘ Mᴀɴᴀɢᴇᴍᴇɴᴛ Bᴏᴛ*
-× *I'ᴍ Vᴇʀʏ Fᴀꜱᴛ Aɴᴅ Mᴏʀᴇ Eꜰꜰɪᴄɪᴇɴᴛ I Pʀᴏᴠɪᴅᴇ Aᴡᴇꜱᴏᴍᴇ Fᴇᴀᴛᴜʀᴇꜱ!*
-───────────────────
-× *Uᴘᴛɪᴍᴇ:* `{}`
-× `{}` *Uꜱᴇʀ, Aᴄʀᴏꜱꜱ* `{}` *Cʜᴀᴛꜱ.*
-───────────────────
-× *Pᴏᴡᴇʀᴇᴅ Bʏ: [Pℓαყ Bσys ƊҲƊ](t.me/playBoysDXD)!*
-───────────────────""".format(
-                    escape_markdown(first_name),
-                    escape_markdown(uptime),
-                    sql.num_users(),
-                    sql.num_chats()),
-                reply_markup=InlineKeyboardMarkup(
-                 [
-                  [InlineKeyboardButton(text="☑️ฬ๏lŦ ✗ t๏ ץ๏ยг Gɾ๏υρ☑️", url="t.me/WolfXRobot?startgroup=true"),
-                    ],                           
-                    [InlineKeyboardButton(text="🧨ѕυρρ๏яτ🎈", callback_data="wolf_support"),
-                    InlineKeyboardButton(text="🎀αɓουτ🔎", callback_data="about_")],
-                    [InlineKeyboardButton(text="👑οωиєя🦁", url="https://t.me/HMF_OWNER_1")],
+           update.effective_message.reply_video(
+            START_IMG, caption= "<code>I'm awake already!\nHaven't slept since</code>: <code>{}</code>".format(
+                uptime
+            ),
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                  [
+                  InlineKeyboardButton(text="Sᴜᴘᴘᴏʀᴛ", url="https://t.me/thanimaisupport")
+                  ],
+                  [
+                  InlineKeyboardButton(text="Uᴘᴅᴀᴛᴇs", url="https://t.me/thanimaibots")
                   ]
-              ),
-                parse_mode=ParseMode.MARKDOWN,              
-            )
-
+                ]
+            ),
+        )
 
 
 def error_handler(update, context):
@@ -349,6 +299,8 @@ def error_callback(update: Update, context: CallbackContext):
 def help_button(update, context):
     query = update.callback_query
     mod_match = re.match(r"help_module\((.+?)\)", query.data)
+    prev_match = re.match(r"help_prev\((.+?)\)", query.data)
+    next_match = re.match(r"help_next\((.+?)\)", query.data)
     back_match = re.match(r"help_back", query.data)
 
     print(query.message.chat.id)
@@ -357,7 +309,7 @@ def help_button(update, context):
         if mod_match:
             module = mod_match.group(1)
             text = (
-                "「 Hᴇʟᴘ ᴏғ *{}* 」:\n".format(
+                "Here is the help for the *{}* module:\n".format(
                     HELPABLE[module].__mod_name__
                 )
                 + HELPABLE[module].__help__
@@ -367,7 +319,27 @@ def help_button(update, context):
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton(text="「 Bᴀᴄᴋ 」", callback_data="help_back")]]
+                    [[InlineKeyboardButton(text="Back", callback_data="help_back")]]
+                ),
+            )
+
+        elif prev_match:
+            curr_page = int(prev_match.group(1))
+            query.message.edit_text(
+                text=HELP_STRINGS,
+                parse_mode=ParseMode.MARKDOWN,
+                reply_markup=InlineKeyboardMarkup(
+                    paginate_modules(curr_page - 1, HELPABLE, "help")
+                ),
+            )
+
+        elif next_match:
+            next_page = int(next_match.group(1))
+            query.message.edit_text(
+                text=HELP_STRINGS,
+                parse_mode=ParseMode.MARKDOWN,
+                reply_markup=InlineKeyboardMarkup(
+                    paginate_modules(next_page + 1, HELPABLE, "help")
                 ),
             )
 
@@ -389,523 +361,64 @@ def help_button(update, context):
 
 
 @run_async
-def wolf_callback_handler(update, context):
+def Masha_about_callback(update, context):
     query = update.callback_query
-    if query.data == "wolf_":
+    if query.data == "masha_":
         query.message.edit_text(
-            text="""𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙃𝙚𝙡𝙥 𝙈𝙚𝙣𝙪. 
-────────────────────────
-*Sᴇʟᴇᴄᴛ  Aʟʟ  Cᴏᴍᴍᴀɴᴅs  Fᴏʀ  Fᴜʟʟ  Hᴇʟᴘ  Oʀ  Sᴇʟᴇᴄᴛ  Cᴀᴛᴀɢᴏʀʏ  Fᴏʀ  Mᴏʀᴇ  Hᴇʟᴘ  Dᴏᴄᴜᴍᴇɴᴛᴀᴛɪᴏɴ  Oɴ  Sᴇʟᴇᴄᴛᴇᴅ  Fɪᴇʟᴅs*""",
+            text=""" ℹ️ I'm *MASHA*, a powerful group management bot built to help you manage your group easily.
+                 \n❍ I can restrict users.
+                 \n❍ I can greet users with customizable welcome messages and even set a group's rules.
+                 \n❍ I have an advanced anti-flood system.
+                 \n❍ I can warn users until they reach max warns, with each predefined actions such as ban, mute, kick, etc.
+                 \n❍ I have a note keeping system, blacklists, and even predetermined replies on certain keywords.
+                 \n❍ I check for admins' permissions before executing any command and more stuffs
+                 \n\n_Masha's licensed under the GNU General Public License v3.0_
+                 \nHere is the [💾Repository](https://github.com/Mr-Dark-Prince/MashaRoBot).
+                 \n\nIf you have any question about Masha, let us know at @WasteBots.""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [
-                     InlineKeyboardButton(text="➕ Aʟʟ Cᴏᴍᴍᴀɴᴅs ➕", callback_data="help_back"),
-                    ],
-                    [InlineKeyboardButton(text="Hᴏᴡ Tᴏ Usᴇ Mᴇ ❓", callback_data="wolf_help"),                           
-                     InlineKeyboardButton(text="Mᴜsɪᴄ Hᴇʟᴘ 🎧", callback_data="wolf_music")],
-                    [InlineKeyboardButton(text="Fᴜɴ Tᴏᴏʟs ⚙", callback_data="wolf_tools"),
-                     InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_back")],
+                 [
+                    InlineKeyboardButton(text="Back", callback_data="masha_back")
+                 ]
                 ]
             ),
         )
-    elif query.data == "wolf_back":
-        first_name = update.effective_user.first_name
-        uptime = get_readable_time((time.time() - StartTime))
+    elif query.data == "masha_back":
         query.message.edit_text(
-                photo=random.choice(WOLF_IMG),
-                text=PM_START_TEXT.format(
-                    escape_markdown(first_name),
-                    sql.num_users(),
-                    sql.num_chats()),
+                PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
-                disable_web_page_preview=False,
+                disable_web_page_preview=True,
         )
-    elif query.data == "wolf_help":
-        query.message.edit_text(
-            text="""*Nᴇᴡ  Tᴏ  WolfXRobot!  Hᴇʀᴇ  Is  Tʜᴇ  Qᴜɪᴄᴋ  Sᴛᴀʀᴛ  Gᴜɪᴅᴇ  Wʜɪᴄʜ  Wɪʟʟ  Hᴇʟᴘ  Yᴏᴜ  Tᴏ  Uɴᴅᴇʀsᴛᴀɴᴅ  Wʜᴀᴛ  Is  WolfXRobot  Aɴᴅ  Hᴏᴡ  Tᴏ  Usᴇ  Iᴛ.
-
-Cʟɪᴄᴋ  Bᴇʟᴏᴡ  Bᴜᴛᴛᴏɴ  Tᴏ  Aᴅᴅ  Bᴏᴛ  Iɴ  Yᴏᴜʀ  Gʀᴏᴜᴘ. Bᴀsɪᴄ  Tᴏᴜʀ  Sᴛᴀʀᴛᴇᴅ  Tᴏ  Kɴᴏᴡ  Aʙᴏᴜᴛ  Hᴏᴡ  Tᴏ  Usᴇ  Mᴇ*""",
-            parse_mode=ParseMode.MARKDOWN,
-            reply_markup=InlineKeyboardMarkup(
-              [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_"),
-                 InlineKeyboardButton(text="𝙉𝙚𝙭𝙩 ➡️", callback_data="wolf_helpa")]
-              ]
-            ),
-        )
-    elif query.data == "wolf_helpa":
-        query.message.edit_text(
-            text="""<b>Hᴇʏ,  Wᴇʟᴄᴏᴍᴇ  Tᴏ  Cᴏɴғɪɢᴜʀᴀᴛɪᴏɴ  Tᴜᴛᴏʀɪᴀʟ
-
-Bᴇғᴏʀᴇ  Wᴇ  Gᴏ,  I  Nᴇᴇᴅ  Aᴅᴍɪɴ  Pᴇʀᴍɪssɪᴏɴs  Iɴ  Tʜɪs  Cʜᴀᴛ  Tᴏ  Wᴏʀᴋ  Pʀᴏᴘᴇʀʟʏ.
-1). Cʟɪᴄᴋ  Mᴀɴᴀɢᴇ  Gʀᴏᴜᴘ.
-2). Gᴏ  Tᴏ  Aᴅᴍɪɴɪsᴛʀᴀᴛᴏʀs  Aɴᴅ  Aᴅᴅ</b>  @WolfXRobot  <b>As  Aᴅᴍɪɴ.
-3). Gɪᴠɪɴɢ  Fᴜʟʟ  Pᴇʀᴍɪssɪᴏɴs  Mᴀᴋᴇ  Tɪᴀɴᴀ  Fᴜʟʟʏ  Usᴇғᴜʟ</b>""",
-            parse_mode=ParseMode.HTML,
-            reply_markup=InlineKeyboardMarkup(
-              [[InlineKeyboardButton(text="⬅️", callback_data="wolf_help"),
-                InlineKeyboardButton(text="➡️", callback_data="wolf_helpb")],               
-              ]
-            ),
-        )
-    elif query.data == "wolf_helpb":
-        query.message.edit_text(
-            text="""*Cᴏɴɢʀᴀɢᴜʟᴀᴛɪᴏɴs,  Tʜɪꜱ  Bᴏᴛ  Nᴏᴡ  Rᴇᴀᴅʏ  Tᴏ  Mᴀɴᴀɢᴇ  Yᴏᴜʀ  Gʀᴏᴜᴘ
-
-Hᴇʀᴇ  Aʀᴇ  Sᴏᴍᴇ  Essᴇɴᴛɪᴀʟᴛ  Tᴏ  Tʀʏ  Oɴ Tɪᴀɴᴀ.
-
-×  Aᴅᴍɪɴ  Tᴏᴏʟs
-ʙᴀsɪᴄ  ᴀᴅᴍɪɴ  ᴛᴏᴏʟs  ʜᴇʟᴘ  ʏᴏᴜ  ᴛᴏ  ᴘʀᴏᴛᴇᴄᴛ  ᴀɴᴅ  ᴘᴏᴡᴇʀᴜᴘ  ʏᴏᴜʀ  ɢʀᴏᴜᴘ
-ʏᴏᴜ  ᴄᴀɴ  ʙᴀɴ  ᴍᴇᴍʙᴇʀs,  ᴋɪᴄᴋ  ᴍᴇᴍʙᴇʀs,  ᴘʀᴏᴍᴏᴛᴇ  sᴏᴍᴇᴏɴᴇ  ᴀs  ᴀᴅᴍɪɴ  ᴛʜʀᴏᴜɢʜ  ᴄᴏᴍᴍᴀɴᴅs  ᴏғ  ʙᴏᴛ
-
-×  Wᴇʟᴄᴏᴍᴇs
-ʟᴇᴛs  sᴇᴛ  ᴀ  ᴡᴇʟᴄᴏᴍᴇ  ᴍᴇssᴀɢᴇ  ᴛᴏ  ᴡᴇʟᴄᴏᴍᴇ  ɴᴇᴡ  ᴜsᴇʀs  ᴄᴏᴍɪɴɢ  ᴛᴏ  ʏᴏᴜʀ  ɢʀᴏᴜᴘ
-sᴇɴᴅ  /setwelcome  [ᴍᴇssᴀɢᴇ]  ᴛᴏ  sᴇᴛ  ᴀ  ᴡᴇʟᴄᴏᴍᴇ  ᴍᴇssᴀɢᴇ
-ᴀʟsᴏ  ʏᴏᴜ  ᴄᴀɴ  sᴛᴏᴘ  ᴇɴᴛᴇʀɪɴɢ  ʀᴏʙᴏᴛs  ᴏʀ  sᴘᴀᴍᴍᴇʀs  ᴛᴏ  ʏᴏᴜʀ  ᴄʜᴀᴛ  ʙʏ  sᴇᴛᴛɪɴɢ  ᴡᴇʟᴄᴏᴍᴇ  ᴄᴀᴘᴛᴄʜᴀ  
-
-Rᴇғᴇʀ  Hᴇʟᴘ  Mᴇɴᴜ  Tᴏ  Sᴇᴇ  Eᴠᴇʀʏᴛʜɪɴɢ  Iɴ  Dᴇᴛᴀɪʟ*""",
-            parse_mode=ParseMode.MARKDOWN,
-            reply_markup=InlineKeyboardMarkup(
-              [
-                [InlineKeyboardButton(text="⬅️", callback_data="wolf_helpa"),
-                 InlineKeyboardButton(text="➡️", callback_data="wolf_helpc")]
-                ]
-            ),
-        )
-    elif query.data == "wolf_helpc":
-        query.message.edit_text(
-            text="""*× Fɪʟᴛᴇʀs
-ғɪʟᴛᴇʀs  ᴄᴀɴ  ʙᴇ  ᴜsᴇᴅ  ᴀs  ᴀᴜᴛᴏᴍᴀᴛᴇᴅ  ʀᴇᴘʟɪᴇs/ʙᴀɴ/ᴅᴇʟᴇᴛᴇ  ᴡʜᴇɴ  sᴏᴍᴇᴏɴᴇ  ᴜsᴇ  ᴀ  ᴡᴏʀᴅ  ᴏʀ  sᴇɴᴛᴇɴᴄᴇ
-ғᴏʀ  ᴇxᴀᴍᴘʟᴇ  ɪғ  ɪ  ғɪʟᴛᴇʀ  ᴡᴏʀᴅ  'ʜᴇʟʟᴏ'  ᴀɴᴅ  sᴇᴛ  ʀᴇᴘʟʏ  ᴀs  'ʜɪ'
-ʙᴏᴛ  ᴡɪʟʟ  ʀᴇᴘʟʏ  ᴀs  'ʜɪ'  ᴡʜᴇɴ  sᴏᴍᴇᴏɴᴇ  sᴀʏ  'ʜᴇʟʟᴏ'
-ʏᴏᴜ  ᴄᴀɴ  ᴀᴅᴅ  ғɪʟᴛᴇʀs  ʙʏ  sᴇɴᴅɪɴɢ  /filter  ғɪʟᴛᴇʀ  ɴᴀᴍᴇ
-
-× Aɪ  CʜᴀᴛBᴏᴛ
-ᴡᴀɴᴛ  sᴏᴍᴇᴏɴᴇ  ᴛᴏ  ᴄʜᴀᴛ  ɪɴ  ɢʀᴏᴜᴘ?
-Tɪᴀɴᴀ  ʜᴀs  ᴀɴ  ɪɴᴛᴇʟʟɪɢᴇɴᴛ  ᴄʜᴀᴛʙᴏᴛ  ᴡɪᴛʜ  ᴍᴜʟᴛɪʟᴀɴɢ  sᴜᴘᴘᴏʀᴛ
-ʟᴇᴛ's  ᴛʀʏ  ɪᴛ,
-Sᴇɴᴅ  /chatbot  Oɴ  Aɴᴅ  Rᴇᴘʟʏ  Tᴏ  Aɴʏ  Oғ  Mʏ  Mᴇssᴀɢᴇs  Tᴏ  Sᴇᴇ  Tʜᴇ  Mᴀɢɪᴄ*""",
-            parse_mode=ParseMode.MARKDOWN,
-            reply_markup=InlineKeyboardMarkup(
-              [
-                [InlineKeyboardButton(text="⬅️", callback_data="wolf_helpb"),
-                 InlineKeyboardButton(text="➡️", callback_data="wolf_helpd")]
-                ]
-            ),
-        )
-    elif query.data == "wolf_helpd":
-        query.message.edit_text(
-            
-text="""*× Sᴇᴛᴛɪɴɢ  Uᴘ  Nᴏᴛᴇs
-ʏᴏᴜ  ᴄᴀɴ  sᴀᴠᴇ  ᴍᴇssᴀɢᴇ/ᴍᴇᴅɪᴀ/ᴀᴜᴅɪᴏ  ᴏʀ  ᴀɴʏᴛʜɪɴɢ  ᴀs  ɴᴏᴛᴇs ᴜsɪɴɢ /notes
-ᴛᴏ  ɢᴇᴛ  ᴀ  ɴᴏᴛᴇ  sɪᴍᴘʟʏ  ᴜsᴇ  #  ᴀᴛ  ᴛʜᴇ  ʙᴇɢɪɴɴɪɴɢ  ᴏғ  ᴀ  ᴡᴏʀᴅ
-sᴇᴇ  ᴛʜᴇ  ɪᴍᴀɢᴇ..
-
-× Sᴇᴛᴛɪɴɢ  Uᴘ  Nɪɢʜᴛᴍᴏᴅᴇ
-ʏᴏᴜ  ᴄᴀɴ  sᴇᴛ  ᴜᴘ  ɴɪɢʜᴛᴍᴏᴅᴇ  ᴜsɪɴɢ  /nightmode  ᴏɴ/ᴏғғ  ᴄᴏᴍᴍᴀɴᴅ.
-
-Nᴏᴛᴇ-  ɴɪɢʜᴛ  ᴍᴏᴅᴇ  ᴄʜᴀᴛs  ɢᴇᴛ  ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ  ᴄʟᴏsᴇᴅ  ᴀᴛ  12ᴘᴍ(ɪsᴛ)
-ᴀɴᴅ  ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ  ᴏᴘᴇɴɴᴇᴅ  ᴀᴛ  6ᴀᴍ(ɪsᴛ)  ᴛᴏ  ᴘʀᴇᴠᴇɴᴛ  ɴɪɢʜᴛ  sᴘᴀᴍs.*""",
-            parse_mode=ParseMode.MARKDOWN,
-            reply_markup=InlineKeyboardMarkup(
-              [
-                [InlineKeyboardButton(text="⬅️", callback_data="wolf_helpc"),
-                 InlineKeyboardButton(text="➡️", callback_data="wolf_helpe")]
-                ]
-            ),
-        )
-    elif query.data == "wolf_term":
-        query.message.edit_text(
-           text="""✗ *Terms and Conditions:*
-
-- Only your first name, last name (if any) and username (if any) is stored for a convenient communication!
-- No group ID or it's messages are stored, we respect everyone's privacy.
-- Messages between Bot and you is only infront of your eyes and there is no backuse of it.
-- Watch your group, if someone is spamming your group, you can use the report feature of your Telegram Client.
-- Do not spam commands, buttons, or anything in bot PM.
-
-*NOTE:* Terms and Conditions might change anytime
-
-*Updates Channel:* @Glaston_Knights_Union
-*Support Chat:* @PlayBoysDXD""",
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [[
-                InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="about_")]]
-            ),
-        )
-    elif query.data == "wolf_helpe":
-        query.message.edit_text(
-            text="""*× Sᴏ  Nᴏᴡ  Yᴏᴜ  Aʀᴇ  Aᴛ  Tʜᴇ  Eɴᴅ  Oғ  Bᴀsɪᴄ  Tᴏᴜʀ.  Bᴜᴛ  Tʜɪs  Is  Nᴏᴛ  Aʟʟ  I  Cᴀɴ  Dᴏ.
-
-Sᴇɴᴅ  /help  Iɴ  Bᴏᴛ  Pᴍ  Tᴏ  Aᴄᴄᴇss  Hᴇʟᴘ  Mᴇɴᴜ
-
-Tʜᴇʀᴇ  Aʀᴇ  Mᴀɴʏ  Hᴀɴᴅʏ  Tᴏᴏʟs  Tᴏ  Tʀʏ  Oᴜᴛ.  
-Aɴᴅ  Aʟsᴏ  Iғ  Yᴏᴜ  Hᴀᴠᴇ  Aɴʏ  Sᴜɢɢᴇssɪᴏɴs  Aʙᴏᴜᴛ  Mᴇ,  Dᴏɴ'ᴛ  Fᴏʀɢᴇᴛ  Tᴏ  tᴇʟʟ  Tʜᴇᴍ  Tᴏ  Dᴇᴠs
-
-Aɢᴀɪɴ  Tʜᴀɴᴋs  Fᴏʀ  Usɪɴɢ  Mᴇ
-
-× Bʏ  Usɪɴɢ  Tʜɪꜱ  Bᴏᴛ  Yᴏᴜ  Aʀᴇ  Aɢʀᴇᴇᴅ  Tᴏ  Oᴜʀ  Tᴇʀᴍs  &  Cᴏɴᴅɪᴛɪᴏɴs*""",
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="➕ Aʟʟ Cᴏᴍᴍᴀɴᴅs  ➕", callback_data="help_back")],
-                [InlineKeyboardButton(text="⬅️", callback_data="wolf_helpd")]]
-            ),
-        )
-    elif query.data == "wolf_music":
-        query.message.edit_text(
-            text="""✗ *Hᴇʀᴇ Iꜱ Tʜᴇ Hᴇʟᴘ 「Aꜱꜱɪꜱᴛᴀɴᴛ」 Mᴏᴅᴜʟᴇ:
-            
-✗ Step No 1 first, add me to your group.
-✗ Step No 2 then promote me as admin and give all permissions except anonymous admin.
-✗ Step No 3 add @wolf_Assitant to your group.
-✗ Step No 4 turn on the video chat first before start to play music.
-✗ Step No 5 Lets Enjoy The Wolf X Music And Join Support Group @PlayBoysDXD
-✗ Pᴏᴡᴇʀᴇᴅ Bʏ: @Glaston_Knights_Union*""",
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-               [[InlineKeyboardButton(text="Pʟᴀʏ Cᴏᴍᴍᴀɴᴅs", callback_data="wolf_musica"),
-                 InlineKeyboardButton(text="Bᴏᴛ Cᴏᴍᴍᴀɴᴅs", callback_data="wolf_musicc")],
-                [InlineKeyboardButton(text="Aᴅᴍɪɴ Cᴏᴍᴍᴀɴᴅs", callback_data="wolf_musicb"),
-                 InlineKeyboardButton(text="Eᴀᴛʀᴀ Cᴏᴍᴍᴀɴᴅs", callback_data="wolf_musicd")],
-                [InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_")]
-               ]
-            ),
-        )
-    elif query.data == "wolf_musica":
-        query.message.edit_text(
-            text="""✗*Here is the help for Play Commands*:
-
-*Note*: wolf Music Bot works on a single merged commands for Music and Video
-
-✗ *Youtube and Telegram Files*:
-
-/play [Reply to any Video or Audio] or [YT Link] or [Music Name]  
-- Stream Video or Music on Voice Chat by selecting inline Buttons you get
 
 
-✗ *wolf Database Saved Playlists*:
-
-/createplaylist
-- Create Your Playlist on wolf's Server with Custom Name
-
-/playlist 
-- Check Your Saved Playlist On Servers.
-
-/deleteplaylist
-- Delete any saved music in your playlist
-
-/playplaylist 
-- Start playing Your Saved Playlist on wolf Servers.""",
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_music")]]
-            ),
-        )
-    elif query.data == "wolf_musicb":
-        query.message.edit_text(
-            text="""✗ *Here is the help for Admin Commands*:
-
-
-✗ *Admin Commands*:
-
-/pause 
-- Pause the playing music on voice chat.
-
-/resume
-- Resume the paused music on voice chat.
-
-/skip
-- Skip the current playing music on voice chat
-
-/end or /stop
-- Stop the playout.
-
-
-✗ *Authorised Users List*:
-
-wolf has a additional feature for non-admin users who want to use admin commands
--Auth users can skip, pause, stop, resume Voice Chats even without Admin Rights.
-
-
-/auth [Username or Reply to a Message] 
-- Add a user to AUTH LIST of the group.
-
-/unauth [Username or Reply to a Message] 
-- Remove a user from AUTH LIST of the group.
-
-/authusers 
-- Check AUTH LIST of the group.""",
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_music")]]
-            ),
-        )
-    elif query.data == "wolf_musicc":
-        query.message.edit_text(
-            text="""✗ *Here is the help for Bot Commands*:
-
-
-/start 
-- Start the wolf Music Bot.
-
-/help 
-- Get Commands Helper Menu with detailed explanations of commands.
-
-/settings 
-- Get Settings dashboard of a group. You can manage Auth Users Mode. Commands Mode from here.
-
-/ping
-- Ping the Bot and check Ram, Cpu etc stats of wolf.""",
-            parse_mode=ParseMode.HTML,
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_music")]]
-            ),
-        )
-    elif query.data == "wolf_musicd":
-        query.message.edit_text(
-            text=""" *Here is the help for Extra Commands*:
-
-
-
-/lyrics [Music Name]
-- Searches Lyrics for the particular Music on web.
-
-/sudolist 
-- Check Sudo Users of wolf Music Bot
-
-/song [Track Name] or [YT Link]
-- Download any track from youtube in mp3 or mp4 formats via wolf.
-
-/queue
-- Check Queue List of Music.
-
-/cleanmode [Enable|Disable]
-- When enabled, wolf will be deleting her 3rd last message to keep your chat clean.""",
-            parse_mode=ParseMode.HTML,
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_music")]]
-            ),
-        )
-    elif query.data == "wolf_about":
-        query.message.edit_text(
-            text= """WolfXRobot it's online since January 2022 and it's constantly updated!
-            
-Bot Admins
-                       
-• @HMF_Owner_1, bot creator and main developer.
-            
-• The Doctor, server manager and developer.
-            
-• Manuel 5, developer.
-            
-Support
-            
-• [Click here](https://t.me/PlayBoysDXD) to consult the updated list of Official Supporters of the bot.
-            
-• Thanks to all our donors for supporting server and development expenses and all those who have reported bugs or suggested new features.
-            
-• We also thank all the groups who rely on our Bot for this service, we hope you will always like it: we are constantly working to improve it!""",
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="about_")]]
-            ),
-        )
-    elif query.data == "wolf_support":
-        query.message.edit_text(
-            text="""*WolfXRobot Support Chats*""",
-            parse_mode=ParseMode.MARKDOWN,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                 [InlineKeyboardButton(text="Sᴜᴘᴘᴏʀᴛ", url=f"https://t.me/PlayBoysDXD"),                           
-                    InlineKeyboardButton(text="Uᴘᴅᴀᴛᴇꜱ", url=f"https://t.me/Glaston_Knights_Union")],
-                    [InlineKeyboardButton(text="Mᴏᴠɪᴇs", url=f"https://t.me/+uzQ0M7QIQeQ2NWI9"),
-                     InlineKeyboardButton(text="Lᴏɢs", url=f"https://t.me/KawaiiXLogs")],
-                    [InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="about_")],
-                 ]
-            ),
-        )
-    elif query.data == "wolf_tools":
-        query.message.edit_text(
-            text="""*Here is the help for the tools module:
-We promise to keep you latest up-date with the latest technology on telegram. 
-we updradge wolfBot everyday to simplifie use of telegram and give a better exprince to users.
-
-Click on below buttons and check amazing tools for users.*""",
-            parse_mode=ParseMode.MARKDOWN,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                 [
-                    InlineKeyboardButton(text="Sᴇᴀʀᴄʜ", callback_data="wolf_toola"),
-                    InlineKeyboardButton(text="Tᴀɢᴀʟʟ", callback_data="wolf_toolb"),
-                    InlineKeyboardButton(text="Kᴀʀᴍᴀ", callback_data="wolf_toolc"),
-                 ],
-                 [
-                    InlineKeyboardButton(text="Fᴏɴᴛ Gᴇɴ", callback_data="wolf_toold"),
-                    InlineKeyboardButton(text="Pᴀꜱᴛᴇ", callback_data="wolf_toole"),
-                    InlineKeyboardButton(text="Tᴇʟᴇɢʀᴀᴘʜ", callback_data="wolf_toolf"),
-                 ],
-                 [
-                    InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_"),
-                 
-                 ]
-                ]
-            ),
-        )
-    elif query.data == "wolf_toola":
-        query.message.edit_text(
-            text="""「 Hᴇʟᴘ ᴏғ Sᴇᴀʀᴄʜ 」:
-
- ❍ /google text: Perform a google search
- ❍ /img text: Search Google for images and returns them
- ❍ /app appname: Searches for an app in Play Store and returns its details.
- ❍ /reverse: Does a reverse image search of the media which it was replied to.""",
-            parse_mode=ParseMode.HTML,
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_tools")]]
-            ),
-        )
-    elif query.data == "wolf_toolb":
-        query.message.edit_text(
-            text="""「 Hᴇʟᴘ ᴏғ Tᴀɢᴀʟʟ 」:
-
- ❍ /tagall or @all '(reply to message or add another message) To mention all members in your group, without exception.
-
-Note- Only admins can Use Tagall Command.""",
-            parse_mode=ParseMode.HTML,
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_tools")]]
-            ),
-        )
-    elif query.data == "wolf_toolc":
-        query.message.edit_text(
-            text="""「 Hᴇʟᴘ ᴏғ Kᴀʀᴍᴀ 」:
-
-UPVOTE - Use upvote keywords like "+", "+1", "thanks" etc to upvote a cb.message.
-DOWNVOTE - Use downvote keywords like "-", "-1", etc to downvote a cb.message.
-
-- /karma ON/OFF: Enable/Disable karma in group. 
-- /karma Reply to a message: Check user's karma
-- /karma: Chek karma list of top 10 users""",
-            parse_mode=ParseMode.HTML,
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_tools")]]
-            ),
-        )
-    elif query.data == "wolf_toold":
-        query.message.edit_text(
-            text="""「 Hᴇʟᴘ ᴏғ Fᴏɴᴛ Gᴇɴ 」:
-
- - /weebify text: weebify your text!
- - /bis text: bold your text!
- - /bi text: bold-italic your text!
- - /tiny text: tiny your text!
- - /fsquare text: square-filled your text!
- - /blue text: bluify your text!
- - /latin text: latinify your text!
- - /lined text: lined your text!""",
-            parse_mode=ParseMode.HTML,
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_tools")]]
-            ),
-        )
-    elif query.data == "wolf_toole":
-        query.message.edit_text(
-            text="""「 Hᴇʟᴘ ᴏғ Pᴀꜱᴛᴇ 」:
-
- ❍ /paste: Saves replied content to replies with a url""",
-            parse_mode=ParseMode.HTML,
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_tools")]]
-            ),
-        )
-    elif query.data == "wolf_toolf":
-        query.message.edit_text(
-            text="""「 Hᴇʟᴘ ᴏғ Tᴇʟᴇɢʀᴀᴘʜ 」:
-
- ❍ /tm :Get Telegraph Link Of Replied Media
- ❍ /txt :Get Telegraph Link of Replied Text""",
-            parse_mode=ParseMode.HTML,
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_tools")]]
-            ),
-        )
-    elif query.data == "wolf_source":
-        query.message.edit_text(
-            text="""*WolfXRobot is Now Open Private Bot Project.*
-
-*Click below Button to Get Source Code.*""",
-            parse_mode=ParseMode.MARKDOWN,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                 [
-                    InlineKeyboardButton(text="📄Rᴇᴘᴏ Pʀɪᴠᴀᴛᴇ ", url="https://github.com/Thiruselvan999/God-of-Wolf-New"),
-                 ]
-                ]
-            ),
-        )
-    elif query.data == "wolf_vida":
-        query.message.reply_video(
-            wolf_VIDA,
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,           
-        )
-    elif query.data == "wolf_vidb":
-        query.message.reply_video(
-            wolf_VIDB,
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,           
-        )
-        
 @run_async
-def wolf_about_callback(update: Update, context: CallbackContext):
+def Source_about_callback(update, context):
     query = update.callback_query
-    if query.data == "about_":
+    if query.data == "source_":
         query.message.edit_text(
-            text="""𝘾𝙇𝙄𝘾𝙆 𝘽𝙀𝙇𝙊𝙒 𝘽𝙐𝙏𝙏𝙊𝙉 𝙁𝙊𝙍 𝙆𝙉𝙊𝙒 𝙈𝙊𝙍𝙀 𝘼𝘽𝙊𝙐𝙏 𝙈𝙀""",
+            text=""" Hi..🤗 I'm *Lonely king*
+                 \nMy source code is private  [support](t.me/thanimaisupport) .""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
-               [
+                [
                  [
-                     InlineKeyboardButton(text="❗️ Aʙᴏᴜᴛ ", callback_data="wolf_about"),
-                     InlineKeyboardButton(text="📄 Sᴏᴜʀᴄᴇ ", callback_data="wolf_source"),
-                 ],
-                 [  
-                    InlineKeyboardButton(text="🫂 Sᴜᴘᴘᴏʀᴛ ", callback_data="wolf_support"),
-                    InlineKeyboardButton(text="👨‍✈️ Oᴡɴᴇʀ ", url="t.me/HMf_Owner_1"),
-                 ],
-                 [
-                     InlineKeyboardButton(text="Tᴇʀᴍs Aɴᴅ Cᴏɴᴅɪᴛɪᴏɴs ❗️", callback_data="wolf_term"),
-                 ],
-                 [
-                     InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="about_back"),
-                 ]    
-               ]
+                    InlineKeyboardButton(text="Go Back", callback_data="source_back")
+                 ]
+                ]
             ),
         )
-    elif query.data == "about_back":
-        first_name = update.effective_user.first_name
-        uptime = get_readable_time((time.time() - StartTime))
+    elif query.data == "source_back":
         query.message.edit_text(
-                photo=random.choice(WOLF_IMG),
-                text=PM_START_TEXT.format(
-                    escape_markdown(first_name),
-                    sql.num_users(),
-                    sql.num_chats()),
+                PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
-                disable_web_page_preview=False,
+                disable_web_page_preview=True,
         )
 
 @run_async
@@ -924,7 +437,7 @@ def get_help(update: Update, context: CallbackContext):
                         [
                             InlineKeyboardButton(
                                 text="Help",
-                                url="t.me/WolfXRobot?start=ghelp_{}".format(
+                                url="t.me/{}?start=ghelp_{}".format(
                                     context.bot.username, module
                                 ),
                             )
@@ -940,7 +453,7 @@ def get_help(update: Update, context: CallbackContext):
                     [
                         InlineKeyboardButton(
                             text="Help",
-                            url="t.me/WolfXRobot?start=help".format(context.bot.username),
+                            url="t.me/{}?start=help".format(context.bot.username),
                         )
                     ]
                 ]
@@ -960,7 +473,7 @@ def get_help(update: Update, context: CallbackContext):
             chat.id,
             text,
             InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Back", callback_data="wolf_")]]
+                [[InlineKeyboardButton(text="Back", callback_data="help_back")]]
             ),
         )
 
@@ -1110,7 +623,7 @@ def get_settings(update: Update, context: CallbackContext):
                         [
                             InlineKeyboardButton(
                                 text="Settings",
-                                url="t.me/WolfXRobot?start=stngs_{}".format(
+                                url="t.me/{}?start=stngs_{}".format(
                                     context.bot.username, chat.id
                                 ),
                             )
@@ -1132,28 +645,23 @@ def donate(update: Update, context: CallbackContext):
     bot = context.bot
     if chat.type == "private":
         update.effective_message.reply_text(
-            text = "𝙔𝙤𝙪 𝘾𝙖𝙣 𝘿𝙤𝙣𝙖𝙩𝙚 𝙈𝙚 𝙃𝙚𝙧𝙚", parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup(
-               [
-                 [                   
-                    InlineKeyboardButton(text="Dᴏɴᴀᴛᴇ Mᴇ", url="https://t.me/PlayBoysDXD"),
-                 ]
-               ]
+            DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
         )
-    )
+
+        if OWNER_ID != 254318997 and DONATION_LINK:
+            update.effective_message.reply_text(
+                "You can also donate to the person currently running me "
+                "[here]({})".format(DONATION_LINK),
+                parse_mode=ParseMode.MARKDOWN,
+            )
+
     else:
         try:
             bot.send_message(
                 user.id,
-                text = "𝙔𝙤𝙪 𝘾𝙖𝙣 𝘿𝙤𝙣𝙖𝙩𝙚 𝙈𝙚 𝙃𝙚𝙧𝙚" ,
+                DONATE_STRING,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
-                reply_markup=InlineKeyboardMarkup(
-               [
-                 [                   
-                    InlineKeyboardButton(text="Dᴏɴᴀᴛᴇ Mᴇ", url="https://t.me/PlayBoysDXD"),
-                 ]
-               ]
-             )
             )
 
             update.effective_message.reply_text(
@@ -1183,31 +691,17 @@ def migrate_chats(update: Update, context: CallbackContext):
     LOGGER.info("Successfully migrated!")
     raise DispatcherHandlerStop
 
-
 def main():
 
     if SUPPORT_CHAT is not None and isinstance(SUPPORT_CHAT, str):
         try:
-            dispatcher.bot.sendMessage("@PlayBoysDX", "🦋⃟ƓƠƊ ƠƑ ωοℓƒ ✗ 𝄞✿‌᭄ Started! Working Fine For Status, Click /start And /help For More Info[.](https://telegra.ph/file/a2a551f17067ec4b39685.jpg)", parse_mode=ParseMode.MARKDOWN,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                  [                  
-                       InlineKeyboardButton(
-                             text="Support 🚑",
-                             url=f"https://t.me/PlayBoysDXD"),
-                       InlineKeyboardButton(
-                             text="Updates 📢",
-                             url="https://t.me/+uzQ0M7QIQeQ2NWI9")
-                     ] 
-                ]
-            ),
-        ) 
+            dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}", "[Yes I am Back to online!](https://telegra.ph/file/9825bc2819bb7c78abe67.jpg)", parse_mode=ParseMode.MARKDOWN) 
         except Unauthorized:
             LOGGER.warning(
-                "Bot isnt able to send message to support_chat, go and check!"
-            )
+                "Bot isnt able to send message to support_chat, go and check!")
         except BadRequest as e:
             LOGGER.warning(e.message)
+
 
     test_handler = CommandHandler("test", test)
     start_handler = CommandHandler("start", start)
@@ -1218,9 +712,9 @@ def main():
     settings_handler = CommandHandler("settings", get_settings)
     settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
 
-    about_callback_handler = CallbackQueryHandler(wolf_callback_handler, pattern=r"wolf_")
-    Wolf_callback_handler = CallbackQueryHandler(wolf_about_callback, pattern=r"about_")
-  
+    about_callback_handler = CallbackQueryHandler(Masha_about_callback, pattern=r"masha_")
+    source_callback_handler = CallbackQueryHandler(Source_about_callback, pattern=r"source_")
+
     donate_handler = CommandHandler("donate", donate)
     migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
 
@@ -1228,7 +722,7 @@ def main():
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)
     dispatcher.add_handler(about_callback_handler)
-    dispatcher.add_handler(Wolf_callback_handler)
+    dispatcher.add_handler(source_callback_handler)
     dispatcher.add_handler(settings_handler)
     dispatcher.add_handler(help_callback_handler)
     dispatcher.add_handler(settings_callback_handler)
