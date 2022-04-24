@@ -424,14 +424,7 @@ def wolf_callback_handler(update, context):
 
 elif query.data == "simplecmd":
         query.message.edit_caption(
-            caption="""✗ *Hᴇʀᴇ Iꜱ Tʜᴇ Hᴇʟᴘ 「Aꜱꜱɪꜱᴛᴀɴᴛ」 Mᴏᴅᴜʟᴇ:
-            
-✗ Step No 1 first, add me to your group.
-✗ Step No 2 then promote me as admin and give all permissions except anonymous admin.
-✗ Step No 3 add @wolf_Assitant to your group.
-✗ Step No 4 turn on the video chat first before start to play music.
-✗ Step No 5 Lets Enjoy The Wolf X Music And Join Support Group @PlayBoysDXD
-✗ Pᴏᴡᴇʀᴇᴅ Bʏ: @Glaston_Knights_Union*""",
+            caption="""Welcome to the Simple help menu!""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
@@ -445,29 +438,29 @@ elif query.data == "simplecmd":
         )
     elif query.data == "simplea":
         query.message.edit_caption(
-            caption="""✗*Here is the help for Play Commands*:
+            caption="""✗ Base Commands
 
-*Note*: wolf Music Bot works on a single merged commands for Music and Video
+👮🏻 Available to Admins&Moderators
+🕵🏻 Available to Admins
 
-✗ *Youtube and Telegram Files*:
+👮🏻 /reload updates the Admins list and their privileges
 
-/play [Reply to any Video or Audio] or [YT Link] or [Music Name]  
-- Stream Video or Music on Voice Chat by selecting inline Buttons you get
+🕵🏻 /settings lets you manage all the Bot settings in a group
 
+👮🏻  /ban lets you ban a user from the group without giving him the possibility to join again using the link of the group
 
-✗ *wolf Database Saved Playlists*:
+👮🏻  /mute puts a user in read-only mode. He can read but he can't send any messages
 
-/createplaylist
-- Create Your Playlist on wolf's Server with Custom Name
+👮🏻  /kick bans a user from the group, giving him the possibility to join again with the link of the group
 
-/playlist 
-- Check Your Saved Playlist On Servers.
+👮🏻  /unban lets you remove a user from group's blacklist, giving them the possibility to join again with the link of the group
 
-/deleteplaylist
-- Delete any saved music in your playlist
+👮🏻  /info gives information about a user
+👮🏻  /myinfo is the same of /info, but sends infos in idk🤣
 
-/playplaylist 
-- Start playing Your Saved Playlist on wolf Servers.""",
+◽️ /Admins gives the complete List of group Staff
+
+✗ Pᴏᴡᴇʀᴇᴅ 🔥 Bʏ: Kɪɢᴏ!.""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
