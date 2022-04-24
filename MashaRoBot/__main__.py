@@ -227,7 +227,7 @@ def start(update: Update, context: CallbackContext):
     else:
           first_name = update.effective_user.first_name
           update.effective_message.reply_photo(
-          photo=random.choice(AASF), caption="""*Hᴇʟʟᴏ {} !*
+          photo=random.choice(WOLF_IMG), text="""*Hᴇʟʟᴏ {} !*
 ───────────────────
 × *I'ᴍ Aɴɪᴍᴇ-Tʜᴇᴍᴇ Gʀᴏᴜᴘ Mᴀɴᴀɢᴇᴍᴇɴᴛ Bᴏᴛ*
 × *I'ᴍ Vᴇʀʏ Fᴀꜱᴛ Aɴᴅ Mᴏʀᴇ Eꜰꜰɪᴄɪᴇɴᴛ I Pʀᴏᴠɪᴅᴇ Aᴡᴇꜱᴏᴍᴇ Fᴇᴀᴛᴜʀᴇꜱ!*
@@ -252,6 +252,8 @@ def start(update: Update, context: CallbackContext):
               ),
                 parse_mode=ParseMode.MARKDOWN,              
             )
+
+
 
 def error_handler(update, context):
     """Log the error and send a telegram message to notify the developer."""
@@ -381,8 +383,8 @@ def help_button(update, context):
 def wolf_callback_handler(update, context):
     query = update.callback_query
     if query.data == "wolf_":
-        query.message.edit_caption(
-            caption="""𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙃𝙚𝙡𝙥 𝙈𝙚𝙣𝙪. 
+        query.message.edit_text(
+            text="""𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙃𝙚𝙡𝙥 𝙈𝙚𝙣𝙪. 
 ────────────────────────
 *Sᴇʟᴇᴄᴛ  Aʟʟ  Cᴏᴍᴍᴀɴᴅs  Fᴏʀ  Fᴜʟʟ  Hᴇʟᴘ  Oʀ  Sᴇʟᴇᴄᴛ  Cᴀᴛᴀɢᴏʀʏ  Fᴏʀ  Mᴏʀᴇ  Hᴇʟᴘ  Dᴏᴄᴜᴍᴇɴᴛᴀᴛɪᴏɴ  Oɴ  Sᴇʟᴇᴄᴛᴇᴅ  Fɪᴇʟᴅs*""",
             parse_mode=ParseMode.MARKDOWN,
@@ -402,9 +404,9 @@ def wolf_callback_handler(update, context):
     elif query.data == "wolf_back":
         first_name = update.effective_user.first_name
         uptime = get_readable_time((time.time() - StartTime))
-        query.message.edit_caption(
+        query.message.edit_text(
                 photo=random.choice(WOLF_IMG),
-                caption=PM_START_TEXT.format(
+                text=PM_START_TEXT.format(
                     escape_markdown(first_name),
                     sql.num_users(),
                     sql.num_chats()),
@@ -414,8 +416,8 @@ def wolf_callback_handler(update, context):
                 disable_web_page_preview=False,
         )
     elif query.data == "wolf_help":
-        query.message.edit_caption(
-            caption="""*Nᴇᴡ  Tᴏ  WolfXRobot!  Hᴇʀᴇ  Is  Tʜᴇ  Qᴜɪᴄᴋ  Sᴛᴀʀᴛ  Gᴜɪᴅᴇ  Wʜɪᴄʜ  Wɪʟʟ  Hᴇʟᴘ  Yᴏᴜ  Tᴏ  Uɴᴅᴇʀsᴛᴀɴᴅ  Wʜᴀᴛ  Is  WolfXRobot  Aɴᴅ  Hᴏᴡ  Tᴏ  Usᴇ  Iᴛ.
+        query.message.edit_text(
+            text="""*Nᴇᴡ  Tᴏ  WolfXRobot!  Hᴇʀᴇ  Is  Tʜᴇ  Qᴜɪᴄᴋ  Sᴛᴀʀᴛ  Gᴜɪᴅᴇ  Wʜɪᴄʜ  Wɪʟʟ  Hᴇʟᴘ  Yᴏᴜ  Tᴏ  Uɴᴅᴇʀsᴛᴀɴᴅ  Wʜᴀᴛ  Is  WolfXRobot  Aɴᴅ  Hᴏᴡ  Tᴏ  Usᴇ  Iᴛ.
 
 Cʟɪᴄᴋ  Bᴇʟᴏᴡ  Bᴜᴛᴛᴏɴ  Tᴏ  Aᴅᴅ  Bᴏᴛ  Iɴ  Yᴏᴜʀ  Gʀᴏᴜᴘ. Bᴀsɪᴄ  Tᴏᴜʀ  Sᴛᴀʀᴛᴇᴅ  Tᴏ  Kɴᴏᴡ  Aʙᴏᴜᴛ  Hᴏᴡ  Tᴏ  Usᴇ  Mᴇ*""",
             parse_mode=ParseMode.MARKDOWN,
@@ -426,8 +428,8 @@ Cʟɪᴄᴋ  Bᴇʟᴏᴡ  Bᴜᴛᴛᴏɴ  Tᴏ  Aᴅᴅ  Bᴏᴛ  Iɴ  Yᴏᴜ
             ),
         )
     elif query.data == "wolf_helpa":
-        query.message.edit_caption(
-            caption="""<b>Hᴇʏ,  Wᴇʟᴄᴏᴍᴇ  Tᴏ  Cᴏɴғɪɢᴜʀᴀᴛɪᴏɴ  Tᴜᴛᴏʀɪᴀʟ
+        query.message.edit_text(
+            text="""<b>Hᴇʏ,  Wᴇʟᴄᴏᴍᴇ  Tᴏ  Cᴏɴғɪɢᴜʀᴀᴛɪᴏɴ  Tᴜᴛᴏʀɪᴀʟ
 
 Bᴇғᴏʀᴇ  Wᴇ  Gᴏ,  I  Nᴇᴇᴅ  Aᴅᴍɪɴ  Pᴇʀᴍɪssɪᴏɴs  Iɴ  Tʜɪs  Cʜᴀᴛ  Tᴏ  Wᴏʀᴋ  Pʀᴏᴘᴇʀʟʏ.
 1). Cʟɪᴄᴋ  Mᴀɴᴀɢᴇ  Gʀᴏᴜᴘ.
@@ -441,8 +443,8 @@ Bᴇғᴏʀᴇ  Wᴇ  Gᴏ,  I  Nᴇᴇᴅ  Aᴅᴍɪɴ  Pᴇʀᴍɪssɪᴏɴs  
             ),
         )
     elif query.data == "wolf_helpb":
-        query.message.edit_caption(
-            caption="""*Cᴏɴɢʀᴀɢᴜʟᴀᴛɪᴏɴs,  Tʜɪꜱ  Bᴏᴛ  Nᴏᴡ  Rᴇᴀᴅʏ  Tᴏ  Mᴀɴᴀɢᴇ  Yᴏᴜʀ  Gʀᴏᴜᴘ
+        query.message.edit_text(
+            text="""*Cᴏɴɢʀᴀɢᴜʟᴀᴛɪᴏɴs,  Tʜɪꜱ  Bᴏᴛ  Nᴏᴡ  Rᴇᴀᴅʏ  Tᴏ  Mᴀɴᴀɢᴇ  Yᴏᴜʀ  Gʀᴏᴜᴘ
 
 Hᴇʀᴇ  Aʀᴇ  Sᴏᴍᴇ  Essᴇɴᴛɪᴀʟᴛ  Tᴏ  Tʀʏ  Oɴ Tɪᴀɴᴀ.
 
@@ -465,8 +467,8 @@ Rᴇғᴇʀ  Hᴇʟᴘ  Mᴇɴᴜ  Tᴏ  Sᴇᴇ  Eᴠᴇʀʏᴛʜɪɴɢ  Iɴ  D
             ),
         )
     elif query.data == "wolf_helpc":
-        query.message.edit_caption(
-            caption="""*× Fɪʟᴛᴇʀs
+        query.message.edit_text(
+            text="""*× Fɪʟᴛᴇʀs
 ғɪʟᴛᴇʀs  ᴄᴀɴ  ʙᴇ  ᴜsᴇᴅ  ᴀs  ᴀᴜᴛᴏᴍᴀᴛᴇᴅ  ʀᴇᴘʟɪᴇs/ʙᴀɴ/ᴅᴇʟᴇᴛᴇ  ᴡʜᴇɴ  sᴏᴍᴇᴏɴᴇ  ᴜsᴇ  ᴀ  ᴡᴏʀᴅ  ᴏʀ  sᴇɴᴛᴇɴᴄᴇ
 ғᴏʀ  ᴇxᴀᴍᴘʟᴇ  ɪғ  ɪ  ғɪʟᴛᴇʀ  ᴡᴏʀᴅ  'ʜᴇʟʟᴏ'  ᴀɴᴅ  sᴇᴛ  ʀᴇᴘʟʏ  ᴀs  'ʜɪ'
 ʙᴏᴛ  ᴡɪʟʟ  ʀᴇᴘʟʏ  ᴀs  'ʜɪ'  ᴡʜᴇɴ  sᴏᴍᴇᴏɴᴇ  sᴀʏ  'ʜᴇʟʟᴏ'
@@ -486,9 +488,9 @@ Sᴇɴᴅ  /chatbot  Oɴ  Aɴᴅ  Rᴇᴘʟʏ  Tᴏ  Aɴʏ  Oғ  Mʏ  Mᴇssᴀ�
             ),
         )
     elif query.data == "wolf_helpd":
-        query.message.edit_caption(
+        query.message.edit_text(
             
-caption="""*× Sᴇᴛᴛɪɴɢ  Uᴘ  Nᴏᴛᴇs
+text="""*× Sᴇᴛᴛɪɴɢ  Uᴘ  Nᴏᴛᴇs
 ʏᴏᴜ  ᴄᴀɴ  sᴀᴠᴇ  ᴍᴇssᴀɢᴇ/ᴍᴇᴅɪᴀ/ᴀᴜᴅɪᴏ  ᴏʀ  ᴀɴʏᴛʜɪɴɢ  ᴀs  ɴᴏᴛᴇs ᴜsɪɴɢ /notes
 ᴛᴏ  ɢᴇᴛ  ᴀ  ɴᴏᴛᴇ  sɪᴍᴘʟʏ  ᴜsᴇ  #  ᴀᴛ  ᴛʜᴇ  ʙᴇɢɪɴɴɪɴɢ  ᴏғ  ᴀ  ᴡᴏʀᴅ
 sᴇᴇ  ᴛʜᴇ  ɪᴍᴀɢᴇ..
@@ -507,8 +509,8 @@ Nᴏᴛᴇ-  ɴɪɢʜᴛ  ᴍᴏᴅᴇ  ᴄʜᴀᴛs  ɢᴇᴛ  ᴀᴜᴛᴏᴍ�
             ),
         )
     elif query.data == "wolf_term":
-        query.message.edit_caption(
-           caption="""✗ *Terms and Conditions:*
+        query.message.edit_text(
+           text="""✗ *Terms and Conditions:*
 
 - Only your first name, last name (if any) and username (if any) is stored for a convenient communication!
 - No group ID or it's messages are stored, we respect everyone's privacy.
@@ -528,8 +530,8 @@ Nᴏᴛᴇ-  ɴɪɢʜᴛ  ᴍᴏᴅᴇ  ᴄʜᴀᴛs  ɢᴇᴛ  ᴀᴜᴛᴏᴍ�
             ),
         )
     elif query.data == "wolf_helpe":
-        query.message.edit_caption(
-            caption="""*× Sᴏ  Nᴏᴡ  Yᴏᴜ  Aʀᴇ  Aᴛ  Tʜᴇ  Eɴᴅ  Oғ  Bᴀsɪᴄ  Tᴏᴜʀ.  Bᴜᴛ  Tʜɪs  Is  Nᴏᴛ  Aʟʟ  I  Cᴀɴ  Dᴏ.
+        query.message.edit_text(
+            text="""*× Sᴏ  Nᴏᴡ  Yᴏᴜ  Aʀᴇ  Aᴛ  Tʜᴇ  Eɴᴅ  Oғ  Bᴀsɪᴄ  Tᴏᴜʀ.  Bᴜᴛ  Tʜɪs  Is  Nᴏᴛ  Aʟʟ  I  Cᴀɴ  Dᴏ.
 
 Sᴇɴᴅ  /help  Iɴ  Bᴏᴛ  Pᴍ  Tᴏ  Aᴄᴄᴇss  Hᴇʟᴘ  Mᴇɴᴜ
 
@@ -547,8 +549,8 @@ Aɢᴀɪɴ  Tʜᴀɴᴋs  Fᴏʀ  Usɪɴɢ  Mᴇ
             ),
         )
     elif query.data == "wolf_music":
-        query.message.edit_caption(
-            caption="""✗ *Hᴇʀᴇ Iꜱ Tʜᴇ Hᴇʟᴘ 「Aꜱꜱɪꜱᴛᴀɴᴛ」 Mᴏᴅᴜʟᴇ:
+        query.message.edit_text(
+            text="""✗ *Hᴇʀᴇ Iꜱ Tʜᴇ Hᴇʟᴘ 「Aꜱꜱɪꜱᴛᴀɴᴛ」 Mᴏᴅᴜʟᴇ:
             
 ✗ Step No 1 first, add me to your group.
 ✗ Step No 2 then promote me as admin and give all permissions except anonymous admin.
@@ -568,8 +570,8 @@ Aɢᴀɪɴ  Tʜᴀɴᴋs  Fᴏʀ  Usɪɴɢ  Mᴇ
             ),
         )
     elif query.data == "wolf_musica":
-        query.message.edit_caption(
-            caption="""✗*Here is the help for Play Commands*:
+        query.message.edit_text(
+            text="""✗*Here is the help for Play Commands*:
 
 *Note*: wolf Music Bot works on a single merged commands for Music and Video
 
@@ -599,8 +601,8 @@ Aɢᴀɪɴ  Tʜᴀɴᴋs  Fᴏʀ  Usɪɴɢ  Mᴇ
             ),
         )
     elif query.data == "wolf_musicb":
-        query.message.edit_caption(
-            caption="""✗ *Here is the help for Admin Commands*:
+        query.message.edit_text(
+            text="""✗ *Here is the help for Admin Commands*:
 
 
 ✗ *Admin Commands*:
@@ -639,8 +641,8 @@ wolf has a additional feature for non-admin users who want to use admin commands
             ),
         )
     elif query.data == "wolf_musicc":
-        query.message.edit_caption(
-            caption="""✗ *Here is the help for Bot Commands*:
+        query.message.edit_text(
+            text="""✗ *Here is the help for Bot Commands*:
 
 
 /start 
@@ -660,8 +662,8 @@ wolf has a additional feature for non-admin users who want to use admin commands
             ),
         )
     elif query.data == "wolf_musicd":
-        query.message.edit_caption(
-            caption=""" *Here is the help for Extra Commands*:
+        query.message.edit_text(
+            text=""" *Here is the help for Extra Commands*:
 
 
 
@@ -685,8 +687,8 @@ wolf has a additional feature for non-admin users who want to use admin commands
             ),
         )
     elif query.data == "wolf_about":
-        query.message.edit_caption(
-            caption= """WolfXRobot it's online since January 2022 and it's constantly updated!
+        query.message.edit_text(
+            text= """WolfXRobot it's online since January 2022 and it's constantly updated!
             
 Bot Admins
                        
@@ -710,8 +712,8 @@ Support
             ),
         )
     elif query.data == "wolf_support":
-        query.message.edit_caption(
-            caption="""*WolfXRobot Support Chats*""",
+        query.message.edit_text(
+            text="""*WolfXRobot Support Chats*""",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -724,8 +726,8 @@ Support
             ),
         )
     elif query.data == "wolf_tools":
-        query.message.edit_caption(
-            caption="""*Here is the help for the tools module:
+        query.message.edit_text(
+            text="""*Here is the help for the tools module:
 We promise to keep you latest up-date with the latest technology on telegram. 
 we updradge wolfBot everyday to simplifie use of telegram and give a better exprince to users.
 
@@ -751,8 +753,8 @@ Click on below buttons and check amazing tools for users.*""",
             ),
         )
     elif query.data == "wolf_toola":
-        query.message.edit_caption(
-            caption="""「 Hᴇʟᴘ ᴏғ Sᴇᴀʀᴄʜ 」:
+        query.message.edit_text(
+            text="""「 Hᴇʟᴘ ᴏғ Sᴇᴀʀᴄʜ 」:
 
  ❍ /google text: Perform a google search
  ❍ /img text: Search Google for images and returns them
@@ -764,8 +766,8 @@ Click on below buttons and check amazing tools for users.*""",
             ),
         )
     elif query.data == "wolf_toolb":
-        query.message.edit_caption(
-            caption="""「 Hᴇʟᴘ ᴏғ Tᴀɢᴀʟʟ 」:
+        query.message.edit_text(
+            text="""「 Hᴇʟᴘ ᴏғ Tᴀɢᴀʟʟ 」:
 
  ❍ /tagall or @all '(reply to message or add another message) To mention all members in your group, without exception.
 
@@ -776,8 +778,8 @@ Note- Only admins can Use Tagall Command.""",
             ),
         )
     elif query.data == "wolf_toolc":
-        query.message.edit_caption(
-            caption="""「 Hᴇʟᴘ ᴏғ Kᴀʀᴍᴀ 」:
+        query.message.edit_text(
+            text="""「 Hᴇʟᴘ ᴏғ Kᴀʀᴍᴀ 」:
 
 UPVOTE - Use upvote keywords like "+", "+1", "thanks" etc to upvote a cb.message.
 DOWNVOTE - Use downvote keywords like "-", "-1", etc to downvote a cb.message.
@@ -791,8 +793,8 @@ DOWNVOTE - Use downvote keywords like "-", "-1", etc to downvote a cb.message.
             ),
         )
     elif query.data == "wolf_toold":
-        query.message.edit_caption(
-            caption="""「 Hᴇʟᴘ ᴏғ Fᴏɴᴛ Gᴇɴ 」:
+        query.message.edit_text(
+            text="""「 Hᴇʟᴘ ᴏғ Fᴏɴᴛ Gᴇɴ 」:
 
  - /weebify text: weebify your text!
  - /bis text: bold your text!
@@ -808,8 +810,8 @@ DOWNVOTE - Use downvote keywords like "-", "-1", etc to downvote a cb.message.
             ),
         )
     elif query.data == "wolf_toole":
-        query.message.edit_caption(
-            caption="""「 Hᴇʟᴘ ᴏғ Pᴀꜱᴛᴇ 」:
+        query.message.edit_text(
+            text="""「 Hᴇʟᴘ ᴏғ Pᴀꜱᴛᴇ 」:
 
  ❍ /paste: Saves replied content to replies with a url""",
             parse_mode=ParseMode.HTML,
@@ -818,8 +820,8 @@ DOWNVOTE - Use downvote keywords like "-", "-1", etc to downvote a cb.message.
             ),
         )
     elif query.data == "wolf_toolf":
-        query.message.edit_caption(
-            caption="""「 Hᴇʟᴘ ᴏғ Tᴇʟᴇɢʀᴀᴘʜ 」:
+        query.message.edit_text(
+            text="""「 Hᴇʟᴘ ᴏғ Tᴇʟᴇɢʀᴀᴘʜ 」:
 
  ❍ /tm :Get Telegraph Link Of Replied Media
  ❍ /txt :Get Telegraph Link of Replied Text""",
@@ -829,8 +831,8 @@ DOWNVOTE - Use downvote keywords like "-", "-1", etc to downvote a cb.message.
             ),
         )
     elif query.data == "wolf_source":
-        query.message.edit_caption(
-            caption="""*WolfXRobot is Now Open Private Bot Project.*
+        query.message.edit_text(
+            text="""*WolfXRobot is Now Open Private Bot Project.*
 
 *Click below Button to Get Source Code.*""",
             parse_mode=ParseMode.MARKDOWN,
@@ -859,8 +861,8 @@ DOWNVOTE - Use downvote keywords like "-", "-1", etc to downvote a cb.message.
 def wolf_about_callback(update: Update, context: CallbackContext):
     query = update.callback_query
     if query.data == "about_":
-        query.message.edit_caption(
-            Caption="""𝘾𝙇𝙄𝘾𝙆 𝘽𝙀𝙇𝙊𝙒 𝘽𝙐𝙏𝙏𝙊𝙉 𝙁𝙊𝙍 𝙆𝙉𝙊𝙒 𝙈𝙊𝙍𝙀 𝘼𝘽𝙊𝙐𝙏 𝙈𝙀""",
+        query.message.edit_text(
+            text="""𝘾𝙇𝙄𝘾𝙆 𝘽𝙀𝙇𝙊𝙒 𝘽𝙐𝙏𝙏𝙊𝙉 𝙁𝙊𝙍 𝙆𝙉𝙊𝙒 𝙈𝙊𝙍𝙀 𝘼𝘽𝙊𝙐𝙏 𝙈𝙀""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
@@ -885,9 +887,9 @@ def wolf_about_callback(update: Update, context: CallbackContext):
     elif query.data == "about_back":
         first_name = update.effective_user.first_name
         uptime = get_readable_time((time.time() - StartTime))
-        query.message.edit_caption(
+        query.message.edit_text(
                 photo=random.choice(WOLF_IMG),
-                caption=PM_START_TEXT.format(
+                text=PM_START_TEXT.format(
                     escape_markdown(first_name),
                     sql.num_users(),
                     sql.num_chats()),
