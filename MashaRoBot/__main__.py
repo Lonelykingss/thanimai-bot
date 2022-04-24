@@ -1,13 +1,27 @@
 import importlib
 import time
+import random
 import re
 from sys import argv
 from typing import Optional
 import MashaRoBot.modules.sql.users_sql as sql
-import MashaRoBot.modules.sql.users_sql as sql
-from MashaRoBot import (ALLOW_EXCL, CERT_PATH, DONATION_LINK, LOGGER,
-                          OWNER_ID, PORT, SUPPORT_CHAT, TOKEN, URL, WEBHOOK,
-                          SUPPORT_CHAT, dispatcher, StartTime, telethn, updater, pbot)
+
+from MashaRoBot import (
+    ALLOW_EXCL,
+    CERT_PATH,
+    LOGGER,
+    OWNER_ID,
+    PORT,
+    TOKEN,
+    URL,
+    WEBHOOK,
+    SUPPORT_CHAT,
+    dispatcher,
+    StartTime,
+    telethn,
+    pbot,
+    updater,
+)
 
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
@@ -32,7 +46,6 @@ from telegram.ext import (
 )
 from telegram.ext.dispatcher import DispatcherHandlerStop, run_async
 from telegram.utils.helpers import escape_markdown
-
 
 def get_readable_time(seconds: int) -> str:
     count = 0
@@ -138,6 +151,9 @@ for module_name in ALL_MODULES:
     if hasattr(imported_module, "__help__") and imported_module.__help__:
         HELPABLE[imported_module.__mod_name__.lower()] = imported_module
 
+    if hasattr(imported_module, "__sub_mod__") and imported_module.__sub_mod__:
+        SUB_MODE[imported_module.__mod_name__.lower()] = imported_module
+
     # Chats to migrate on chat_migrated events
     if hasattr(imported_module, "__migrate__"):
         MIGRATEABLE.append(imported_module)
@@ -165,13 +181,13 @@ for module_name in ALL_MODULES:
 def send_help(chat_id, text, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
-    dispatcher.bot.send_message(
+    dispatcher.bot.send_photo(
         chat_id=chat_id,
+        photo=random.choice(WOLF_IMG),
         text=text,
         parse_mode=ParseMode.MARKDOWN,
-        disable_web_page_preview=True,
-        reply_markup=keyboard,
-    )
+        reply_markup=keyboard)
+   
 
 
 @run_async
@@ -214,6 +230,22 @@ def start(update: Update, context: CallbackContext):
             elif args[0][1:].isdigit() and "rules" in IMPORTED:
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
+        else:
+             first_name = update.effective_user.first_name
+             update.effective_message.reply_photo(
+               photo=random.choice(WOLF_IMG),
+               text=PM_START_TEXT.format(
+                    escape_markdown(first_name),
+                    escape_markdown(uptime),
+                    sql.num_users(),
+                    sql.num_chats()),                        
+                reply_markup=InlineKeyboardMarkup(buttons),
+                parse_mode=ParseMode.MARKDOWN,
+                timeout=60,
+          )
+
+
+    
         else:
             update.effective_message.reply_text(
                 PM_START_TEXT.format(
@@ -892,7 +924,7 @@ def get_help(update: Update, context: CallbackContext):
                         [
                             InlineKeyboardButton(
                                 text="Help",
-                                url="t.me/{}?start=ghelp_{}".format(
+                                url="t.me/WolfXRobot?start=ghelp_{}".format(
                                     context.bot.username, module
                                 ),
                             )
@@ -908,7 +940,7 @@ def get_help(update: Update, context: CallbackContext):
                     [
                         InlineKeyboardButton(
                             text="Help",
-                            url="t.me/{}?start=help".format(context.bot.username),
+                            url="t.me/WolfXRobot?start=help".format(context.bot.username),
                         )
                     ]
                 ]
@@ -928,7 +960,7 @@ def get_help(update: Update, context: CallbackContext):
             chat.id,
             text,
             InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Back", callback_data="help_back")]]
+                [[InlineKeyboardButton(text="Back", callback_data="wolf_")]]
             ),
         )
 
@@ -1078,7 +1110,7 @@ def get_settings(update: Update, context: CallbackContext):
                         [
                             InlineKeyboardButton(
                                 text="Settings",
-                                url="t.me/{}?start=stngs_{}".format(
+                                url="t.me/WolfXRobot?start=stngs_{}".format(
                                     context.bot.username, chat.id
                                 ),
                             )
@@ -1100,23 +1132,28 @@ def donate(update: Update, context: CallbackContext):
     bot = context.bot
     if chat.type == "private":
         update.effective_message.reply_text(
-            DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
+            text = "𝙔𝙤𝙪 𝘾𝙖𝙣 𝘿𝙤𝙣𝙖𝙩𝙚 𝙈𝙚 𝙃𝙚𝙧𝙚", parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup(
+               [
+                 [                   
+                    InlineKeyboardButton(text="Dᴏɴᴀᴛᴇ Mᴇ", url="https://t.me/PlayBoysDXD"),
+                 ]
+               ]
         )
-
-        if OWNER_ID != 254318997 and DONATION_LINK:
-            update.effective_message.reply_text(
-                "You can also donate to the person currently running me "
-                "[here]({})".format(DONATION_LINK),
-                parse_mode=ParseMode.MARKDOWN,
-            )
-
+    )
     else:
         try:
             bot.send_message(
                 user.id,
-                DONATE_STRING,
+                text = "𝙔𝙤𝙪 𝘾𝙖𝙣 𝘿𝙤𝙣𝙖𝙩𝙚 𝙈𝙚 𝙃𝙚𝙧𝙚" ,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
+                reply_markup=InlineKeyboardMarkup(
+               [
+                 [                   
+                    InlineKeyboardButton(text="Dᴏɴᴀᴛᴇ Mᴇ", url="https://t.me/PlayBoysDXD"),
+                 ]
+               ]
+             )
             )
 
             update.effective_message.reply_text(
@@ -1146,17 +1183,31 @@ def migrate_chats(update: Update, context: CallbackContext):
     LOGGER.info("Successfully migrated!")
     raise DispatcherHandlerStop
 
+
 def main():
 
     if SUPPORT_CHAT is not None and isinstance(SUPPORT_CHAT, str):
         try:
-            dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}", "[Yes I am Back to online!](https://telegra.ph/file/9825bc2819bb7c78abe67.jpg)", parse_mode=ParseMode.MARKDOWN) 
+            dispatcher.bot.sendMessage("@PlayBoysDX", "🦋⃟ƓƠƊ ƠƑ ωοℓƒ ✗ 𝄞✿‌᭄ Started! Working Fine For Status, Click /start And /help For More Info[.](https://telegra.ph/file/a2a551f17067ec4b39685.jpg)", parse_mode=ParseMode.MARKDOWN,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                  [                  
+                       InlineKeyboardButton(
+                             text="Support 🚑",
+                             url=f"https://t.me/PlayBoysDXD"),
+                       InlineKeyboardButton(
+                             text="Updates 📢",
+                             url="https://t.me/+uzQ0M7QIQeQ2NWI9")
+                     ] 
+                ]
+            ),
+        ) 
         except Unauthorized:
             LOGGER.warning(
-                "Bot isnt able to send message to support_chat, go and check!")
+                "Bot isnt able to send message to support_chat, go and check!"
+            )
         except BadRequest as e:
             LOGGER.warning(e.message)
-
 
     test_handler = CommandHandler("test", test)
     start_handler = CommandHandler("start", start)
@@ -1167,9 +1218,9 @@ def main():
     settings_handler = CommandHandler("settings", get_settings)
     settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
 
-    about_callback_handler = CallbackQueryHandler(Masha_about_callback, pattern=r"masha_")
-    source_callback_handler = CallbackQueryHandler(Source_about_callback, pattern=r"source_")
-
+    about_callback_handler = CallbackQueryHandler(wolf_callback_handler, pattern=r"wolf_")
+    Wolf_callback_handler = CallbackQueryHandler(wolf_about_callback, pattern=r"about_")
+  
     donate_handler = CommandHandler("donate", donate)
     migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
 
@@ -1177,7 +1228,7 @@ def main():
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)
     dispatcher.add_handler(about_callback_handler)
-    dispatcher.add_handler(source_callback_handler)
+    dispatcher.add_handler(Wolf_callback_handler)
     dispatcher.add_handler(settings_handler)
     dispatcher.add_handler(help_callback_handler)
     dispatcher.add_handler(settings_callback_handler)
