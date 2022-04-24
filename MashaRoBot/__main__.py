@@ -429,8 +429,8 @@ elif query.data == "simplecmd":
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                [[InlineKeyboardButton(text="Basic Commands", callback_data="simplea"),
-                 InlineKeyboardButton(text="Expert Commands", callback_data="simpleb")],
-                [InlineKeyboardButton(text="Aᴅᴍɪɴ Cᴏᴍᴍᴀɴᴅs", callback_data="simpleb"),
+                 InlineKeyboardButton(text="Advanced Commands", callback_data="simpleb")],
+                [InlineKeyboardButton(text="Expert commands", callback_data="simpleb"),
                  InlineKeyboardButton(text="Eᴀᴛʀᴀ Cᴏᴍᴍᴀɴᴅs", callback_data="simpled")],
                 [InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_")]
                ]
@@ -497,20 +497,26 @@ Ex 💡 :- /tban 1m
         )
     elif query.data == "simplec":
         query.message.edit_caption(
-            caption="""✗ *Here is the help for Bot Commands*:
+            caption="""Expert commands
 
+👥 Available to all users
+👮🏻 Available to Admins&Moderators
+🕵🏻 Available to Admins
 
-/start 
-- Start the wolf Music Bot.
+👥 /makeqr ,  to make qr .
 
-/help 
-- Get Commands Helper Menu with detailed explanations of commands.
+Pinned Messages
+🕵🏻 /pin message sends the message through the Bot and pins it.
+🕵🏻 /pin pins the message in reply.
+🕵🏻 /repin removes and pins again the current pinned message, with notification!
+👥 /pinned refers to the current pinned message.
 
-/settings 
-- Get Settings dashboard of a group. You can manage Auth Users Mode. Commands Mode from here.
+🕵🏻  /list sends in private chat the list of users of the group with the number of messages sent by them.
+🕵🏻 /logo to get logo
 
-/ping
-- Ping the Bot and check Ram, Cpu etc stats of wolf.""",
+🕵🏻  /write to get hand written logo.
+
+✗ Pᴏᴡᴇʀᴇᴅ 🔥 Bʏ: Thanamai!""",
             parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="simplecmd")]]
