@@ -400,9 +400,13 @@ def wolf_callback_handler(update, context):
     query = update.callback_query
     if query.data == "wolf_":
         query.message.edit_caption(
-            caption="""𝙒𝙚𝙡𝙘𝙤𝙢𝙚 𝙩𝙤 𝙃𝙚𝙡𝙥 𝙈𝙚𝙣𝙪. 
-────────────────────────
-*Sᴇʟᴇᴄᴛ  Aʟʟ  Cᴏᴍᴍᴀɴᴅs  Fᴏʀ  Fᴜʟʟ  Hᴇʟᴘ  Oʀ  Sᴇʟᴇᴄᴛ  Cᴀᴛᴀɢᴏʀʏ  Fᴏʀ  Mᴏʀᴇ  Hᴇʟᴘ  Dᴏᴄᴜᴍᴇɴᴛᴀᴛɪᴏɴ  Oɴ  Sᴇʟᴇᴄᴛᴇᴅ  Fɪᴇʟᴅs*""",
+            caption="""Hey there! My name is KIGO
+✗ MAIN COMMANDS ✗
+
+✗ /start - Starts me! Your probably already used this.
+✗ /help - Click this I ll let you know about myself!
+✗ /settings - in PM: will send you your settings for all supported modules.
+✗ In A Group: Will Redirect You To Pm With All That Chats Settings.)""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
@@ -410,11 +414,150 @@ def wolf_callback_handler(update, context):
                     [
                      InlineKeyboardButton(text="➕ Aʟʟ Cᴏᴍᴍᴀɴᴅs ➕", callback_data="help_back"),
                     ],
-                    [InlineKeyboardButton(text="Hᴏᴡ Tᴏ Usᴇ Mᴇ ❓", callback_data="wolf_help"),                           
+                    [InlineKeyboardButton(text="Hᴏᴡ Tᴏ Usᴇ Mᴇ ❓", callback_data="simplecmd"),                           
                      InlineKeyboardButton(text="Mᴜsɪᴄ Hᴇʟᴘ 🎧", callback_data="wolf_music")],
                     [InlineKeyboardButton(text="Fᴜɴ Tᴏᴏʟs ⚙", callback_data="wolf_tools"),
                      InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_back")],
                 ]
+            ),
+        )
+
+elif query.data == "simplecmd":
+        query.message.edit_caption(
+            caption="""✗ *Hᴇʀᴇ Iꜱ Tʜᴇ Hᴇʟᴘ 「Aꜱꜱɪꜱᴛᴀɴᴛ」 Mᴏᴅᴜʟᴇ:
+            
+✗ Step No 1 first, add me to your group.
+✗ Step No 2 then promote me as admin and give all permissions except anonymous admin.
+✗ Step No 3 add @wolf_Assitant to your group.
+✗ Step No 4 turn on the video chat first before start to play music.
+✗ Step No 5 Lets Enjoy The Wolf X Music And Join Support Group @PlayBoysDXD
+✗ Pᴏᴡᴇʀᴇᴅ Bʏ: @Glaston_Knights_Union*""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+               [[InlineKeyboardButton(text="Pʟᴀʏ Cᴏᴍᴍᴀɴᴅs", callback_data="simplea"),
+                 InlineKeyboardButton(text="Bᴏᴛ Cᴏᴍᴍᴀɴᴅs", callback_data="simplec")],
+                [InlineKeyboardButton(text="Aᴅᴍɪɴ Cᴏᴍᴍᴀɴᴅs", callback_data="simpleb"),
+                 InlineKeyboardButton(text="Eᴀᴛʀᴀ Cᴏᴍᴍᴀɴᴅs", callback_data="simpled")],
+                [InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="wolf_")]
+               ]
+            ),
+        )
+    elif query.data == "simplea":
+        query.message.edit_caption(
+            caption="""✗*Here is the help for Play Commands*:
+
+*Note*: wolf Music Bot works on a single merged commands for Music and Video
+
+✗ *Youtube and Telegram Files*:
+
+/play [Reply to any Video or Audio] or [YT Link] or [Music Name]  
+- Stream Video or Music on Voice Chat by selecting inline Buttons you get
+
+
+✗ *wolf Database Saved Playlists*:
+
+/createplaylist
+- Create Your Playlist on wolf's Server with Custom Name
+
+/playlist 
+- Check Your Saved Playlist On Servers.
+
+/deleteplaylist
+- Delete any saved music in your playlist
+
+/playplaylist 
+- Start playing Your Saved Playlist on wolf Servers.""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="simplecmd")]]
+            ),
+        )
+    elif query.data == "simpleb":
+        query.message.edit_caption(
+            caption="""✗ *Here is the help for Admin Commands*:
+
+
+✗ *Admin Commands*:
+
+/pause 
+- Pause the playing music on voice chat.
+
+/resume
+- Resume the paused music on voice chat.
+
+/skip
+- Skip the current playing music on voice chat
+
+/end or /stop
+- Stop the playout.
+
+
+✗ *Authorised Users List*:
+
+wolf has a additional feature for non-admin users who want to use admin commands
+-Auth users can skip, pause, stop, resume Voice Chats even without Admin Rights.
+
+
+/auth [Username or Reply to a Message] 
+- Add a user to AUTH LIST of the group.
+
+/unauth [Username or Reply to a Message] 
+- Remove a user from AUTH LIST of the group.
+
+/authusers 
+- Check AUTH LIST of the group.""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="simplecmd")]]
+            ),
+        )
+    elif query.data == "simplec":
+        query.message.edit_caption(
+            caption="""✗ *Here is the help for Bot Commands*:
+
+
+/start 
+- Start the wolf Music Bot.
+
+/help 
+- Get Commands Helper Menu with detailed explanations of commands.
+
+/settings 
+- Get Settings dashboard of a group. You can manage Auth Users Mode. Commands Mode from here.
+
+/ping
+- Ping the Bot and check Ram, Cpu etc stats of wolf.""",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="simplecmd")]]
+            ),
+        )
+    elif query.data == "simpled":
+        query.message.edit_caption(
+            caption=""" *Here is the help for Extra Commands*:
+
+
+
+/lyrics [Music Name]
+- Searches Lyrics for the particular Music on web.
+
+/sudolist 
+- Check Sudo Users of wolf Music Bot
+
+/song [Track Name] or [YT Link]
+- Download any track from youtube in mp3 or mp4 formats via wolf.
+
+/queue
+- Check Queue List of Music.
+
+/cleanmode [Enable|Disable]
+- When enabled, wolf will be deleting her 3rd last message to keep your chat clean.""",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="🔙 𝘽𝙖𝙘𝙠", callback_data="simplecmd")]]
             ),
         )
 
